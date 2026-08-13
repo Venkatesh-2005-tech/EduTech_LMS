@@ -1,0 +1,279 @@
+/* --- 1. GLOBAL RESET & TYPOGRAPHY --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f6f9f6; /* SugarMitra off-white background */
+    color: #222222;
+}
+
+/* --- 2. HEADER & NAVIGATION --- */
+header {
+    background-color: white;
+    padding: 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea; /* Adds a clean line under the header */
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #137a63;
+}
+
+header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+}
+
+nav a {
+    color: #555555;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #137a63;
+}
+
+/* --- 3. ALERT BANNER --- */
+.alert-banner {
+    background-color: #e6f2ef;
+    color: #137a63;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+/* --- 4. THE HERO SECTION (Side-by-Side Layout) --- */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 40px;
+    gap: 60px;
+}
+
+.hero-text-column {
+    flex: 1;
+}
+
+.hero-image-column {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-image-column img {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* --- 5. TYPOGRAPHY & BUTTONS --- */
+.overline-text {
+    color: #137a63;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.hero-text-column h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.hero-text-column h1 span {
+    color: #929d5b; /* The olive/gold highlight color */
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 30px; /* Pill-shaped buttons */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #137a63;
+    color: white;
+    border: none;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #222;
+    border: 1px solid #ccc;
+}
+
+.btn-primary:hover {
+    background-color: #0e5c4a;
+}
+
+/* --- 6. VIDEO GRID (Bottom Section) --- */
+.course-videos {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 40px;
+}
+
+.course-videos h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+}
+
+.course-videos h2 span {
+    color: #137a63;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.video-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-10px); /* Lifts the card on hover */
+}
+
+.video-card iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.video-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #137a63;
+}
+
+.video-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    margin-top: 40px;
+}
+/* --- REGISTRATION PAGE CENTERING --- */
+
+body {
+    margin: 0; /* Strips away browser default borders */
+}
+
+/* 1. Forces the wrapper to take up the whole screen and center the card */
+.auth-body {
+    display: flex;
+    justify-content: center;   /* Centers horizontally */
+    align-items: center;       /* Centers vertically */
+    min-height: 100vh;         /* Forces container to be 100% of the screen height */
+    background-color: #f6f9f6; /* Soft off-white background */
+}
+
+/* 2. Styles the actual white login box */
+.auth-card {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+    width: 100%;
+    max-width: 400px;          /* Stops the card from stretching too wide */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.auth-card h1 {
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
+
+.auth-card p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* 3. Styles the inputs to fit perfectly */
+.auth-card label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    color: #137a63;
+    margin-bottom: 8px;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;    
+    font-size: 1rem;
+}
+
+.auth-card input:focus {
+    outline: none;
+    border-color: #137a63;     /* Turns green when clicked */
+}
+
+.auth-card button {
+    width: 100%;               
+    margin-top: 10px;
+}
+
+.otp-message {
+    background-color: #e6f2ef;
+    color: #137a63;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}

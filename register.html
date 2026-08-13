@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | EduTech</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script>
+    
+    <!-- The EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+ </head>
+ <body>
+
+   <!-- This wrapper will center the card on the screen -->
+   <div class="auth-body">
+
+        <div class="auth-card">
+            <h1><span>EduTech</span></h1>
+            <p>Start your tech journey today.</p>
+
+            <!-- STEP 1: Name and Email -->
+            <div id="step-1">
+                <label for="userName">Full Name</label>
+                <input type="text" id="userName" placeholder="e.g. Jane Doe" required>
+
+                <label for="userEmail">Email Address</label>
+                <input type="email" id="userEmail" placeholder="jane@example.com" required>
+
+                <button class="btn-primary auth-btn" onclick="sendOTP()">Send OTP</button>
+            </div>
+
+            <!-- STEP 2: OTP Verification (Hidden by default) -->
+            <div id="step-2" style="display: none;">
+                <p class="otp-message">An OTP has been sent to your email!</p>
+                
+                <label for="otpInput">Enter 4-Digit OTP</label>
+                <input type="text" id="otpInput" placeholder="e.g. 1234" maxlength="4">
+
+                <button class="btn-primary auth-btn" onclick="verifyOTP()">Verify & Login</button>
+            </div>
+        </div>
+        
+   </div>
+ 
+   <!-- Links to your JavaScript file -->
+   <script src="auth.js"></script>
+   <script src="config.js"></script>
+</body>
+</html>
