@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artificial Intelligence | EduTech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;">
+
+    <!-- Navbar -->
+    <header style="background-color: #ffffff; border-bottom: 1px solid #e1e4e8; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <h2 style="margin: 0; color: #0f2e21; font-size: 22px;">Edu<span style="color: #2e8b57;">Tech</span></h2>
+        
+        <a href="dashboard.html" style="padding: 8px 20px; background-color: #0f2e21; color: white; text-decoration: none; border-radius: 20px; font-weight: 600; font-size: 14px;">Dashboard &rarr;</a>
+    </header>
+
+    <!-- Notification Banner -->
+    <div style="background-color: #e6f4ea; color: #0f2e21; text-align: center; padding: 12px 0; font-weight: 600; font-size: 14px;">
+        New Tech Tracks Available: <span style="font-weight: bold;">Artificial Intelligence in 2026!</span>
+    </div>
+
+    <!-- Main Course Hero Section -->
+    <main style="max-width: 1200px; margin: 50px auto 30px; padding: 0 20px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+            
+            <!-- Left Text Section -->
+            <div style="flex: 1; min-width: 320px;">
+                <span style="color: #2e8b57; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 13px;">— Your Learning Path</span>
+                <h1 style="color: #222; font-size: 3.2rem; margin-top: 15px; line-height: 1.15; font-weight: 800;">
+                    Master <span style="color: #6a9355;">Artificial Intelligence</span> from scratch.
+                </h1>
+                <p style="color: #555; font-size: 1.05rem; line-height: 1.6; margin-top: 20px;">
+                    Follow our curated video roadmap to build real-world AI projects with Python, Machine Learning, Deep Learning, and Neural Networks.
+                </p>
+            </div>
+
+            <!-- Right Thumbnail Image Section -->
+            <div style="flex: 1; min-width: 320px; display: flex; justify-content: center;">
+                <div style="width: 100%; max-width: 520px; border-radius: 18px; overflow: hidden; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); border: 2px solid #2e8b57; background: #000;">
+                    <img src="ar.png" 
+                         alt="Artificial Intelligence Course Thumbnail" 
+                         style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <br>
+
+    <!-- Video Course Section -->
+    <section style="max-width: 1200px; margin: 30px auto 80px; padding: 0 20px;">
+        <h2 style="color: #0f2e21; font-size: 24px; margin-bottom: 20px;">Course Curriculum & Video Lectures</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+            
+            <!-- Left: Active Video Player -->
+            <div style="flex: 2; min-width: 320px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe id="mainVideoPlayer" 
+                            src="https://www.youtube.com/embed/eWRfhZUzrAc" 
+                            title="AI Course Video Player" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div style="background: #ffffff; padding: 18px 20px; border-top: 1px solid #eee;">
+                    <h3 id="currentVideoTitle" style="margin: 0 0 6px 0; color: #0f2e21; font-size: 18px;">Lesson 1: Python & Math Foundations for AI</h3>
+                    <p id="currentVideoDesc" style="margin: 0; color: #666; font-size: 14px;">Master the syntax, NumPy, and matrix mathematics required for artificial intelligence algorithms.</p>
+                </div>
+            </div>
+
+            <!-- Right: Video Playlist / List -->
+            <div style="flex: 1; min-width: 280px; background: #ffffff; border-radius: 12px; padding: 16px; border: 1px solid #eaeaea; box-shadow: 0 4px 10px rgba(0,0,0,0.03); max-height: 480px; overflow-y: auto;">
+                <h4 style="margin: 0 0 12px 0; color: #0f2e21; font-size: 16px;">Course Lessons</h4>
+
+                <!-- Lesson 1 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'eWRfhZUzrAc', 'Lesson 1: Python & Math Foundations for AI', 'Master syntax, NumPy, and data manipulation.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #e6f4ea; cursor: pointer; border-left: 4px solid #2e8b57;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #0f2e21;">1. Python & Data Science Basics</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 4h 26m</span>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'i_LwzRVP7bg', 'Lesson 2: Machine Learning Fundamentals', 'Linear regression, classification, decision trees, and model evaluation.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">2. Machine Learning Algorithms</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 3h 53m</span>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'aircAruvnKk', 'Lesson 3: Deep Learning & Neural Networks', 'Backpropagation, gradient descent, and activation functions.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">3. Neural Networks & Math</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 19m</span>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'V_xro1bcAuA', 'Lesson 4: PyTorch Deep Learning Bootcamp', 'Hands-on neural network engineering with PyTorch tensors and GPUs.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">4. PyTorch for Deep Learning</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ Full Course</span>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'zxQyTK8quyY', 'Lesson 5: Transformers & Large Language Models', 'Understand how attention mechanisms and modern LLMs function.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">5. Transformers & LLMs</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 16m</span>
+                </div>
+
+                <!-- Lesson 6 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'oXlwWbU8l2o', 'Lesson 6: Computer Vision with OpenCV', 'Image processing, object detection, and visual AI models.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">6. Computer Vision (OpenCV)</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 3h 41m</span>
+                </div>
+
+                <!-- Lesson 7 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'b-bh6U_bO34', 'Lesson 7: AI Capstone Project', 'Deploy an end-to-end full-stack AI application.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">7. Capstone AI Project</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 1h 30m</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Playlist Switcher Script -->
+    <script>
+    function changeVideo(element, youtubeId, title, desc) {
+        document.getElementById('mainVideoPlayer').src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+        document.getElementById('currentVideoTitle').innerText = title;
+        document.getElementById('currentVideoDesc').innerText = desc;
+
+        // Reset all playlist item backgrounds
+        const allItems = document.querySelectorAll('.lesson-item');
+        allItems.forEach(item => {
+            item.style.background = "#f8f9fa";
+            item.style.borderLeft = "4px solid transparent";
+            item.querySelector('p').style.color = "#333";
+        });
+
+        // Highlight selected item
+        element.style.background = "#e6f4ea";
+        element.style.borderLeft = "4px solid #2e8b57";
+        element.querySelector('p').style.color = "#0f2e21";
+    }
+    </script>
+</body>
+</html>

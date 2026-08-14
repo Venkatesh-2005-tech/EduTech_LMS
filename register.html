@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | EduTech</title>
     <link rel="stylesheet" href="style.css">
-    <script src="config.js"></script>
-    
-    <!-- The EmailJS Library -->
+
+    <!-- 1. EmailJS Library FIRST -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
- </head>
- <body>
+    
+    <!-- 2. Config File ONCE -->
+    <script src="config.js"></script>
+
+    <!-- 3. Auth Logic -->
+    <script src="auth.js" defer></script>
+</head>
+<body>
 
    <!-- This wrapper will center the card on the screen -->
    <div class="auth-body">
@@ -19,7 +24,7 @@
             <h1><span>EduTech</span></h1>
             <p>Start your tech journey today.</p>
 
-            <!-- STEP 1: Name and Email -->
+            <!-- STEP 1: Name, Email & Password -->
             <div id="step-1">
                 <label for="userName">Full Name</label>
                 <input type="text" id="userName" placeholder="e.g. Jane Doe" required>
@@ -27,7 +32,10 @@
                 <label for="userEmail">Email Address</label>
                 <input type="email" id="userEmail" placeholder="jane@example.com" required>
 
-                <button class="btn-primary auth-btn" onclick="sendOTP()">Send OTP</button>
+                <label for="userPassword">Password</label>
+                <input type="password" id="userPassword" placeholder="Create a strong password" required>
+                
+                <button type="button" class="btn-primary auth-btn" onclick="sendOTP()">Send OTP</button>
             </div>
 
             <!-- STEP 2: OTP Verification (Hidden by default) -->
@@ -37,14 +45,11 @@
                 <label for="otpInput">Enter 4-Digit OTP</label>
                 <input type="text" id="otpInput" placeholder="e.g. 1234" maxlength="4">
 
-                <button class="btn-primary auth-btn" onclick="verifyOTP()">Verify & Login</button>
+                <button type="button" class="btn-primary auth-btn" onclick="verifyOTP()">Verify & Login</button>
             </div>
         </div>
         
    </div>
  
-   <!-- Links to your JavaScript file -->
-   <script src="auth.js"></script>
-   <script src="config.js"></script>
 </body>
 </html>

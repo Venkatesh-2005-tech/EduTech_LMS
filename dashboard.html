@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | EduTech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #ebf5ff; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+    <!-- Clean Header -->
+    <header style="width: 100%; box-sizing: border-box; background-color: #ffffff; border-bottom: 1px solid #e1e4e8; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700;">Edu<span style="color: #2e8b57;">Tech</span></h2>
+        
+        <!-- Search Bar -->
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" id="searchInput" placeholder="Search courses (e.g., AI, Full Stack)..." 
+                   style="padding: 8px 15px; width: 280px; border: 1px solid #ccc; border-radius: 6px; outline: none; font-size: 14px;"
+                   onkeypress="handleSearch(event)">
+            <button onclick="performSearch()" style="padding: 8px 15px; background-color: #0f2e21; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Search</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <span id="welcomeUser" style="font-weight: 600; color: #333; font-size: 14px;"></span>
+            <button onclick="logout()" style="padding: 8px 16px; background-color: #265c16; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600;">Log Out</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <h3 style="color: #333; margin-bottom: 20px;">Available Courses</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+            
+            <!-- Course Card 1: Artificial Intelligence (Points to ai.html) -->
+             <div class="video-card">
+            <div class="course-card" style="background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                <h4 style="margin-top: 0; color: #0f2e21;">Artificial Intelligence</h4>
+                <p style="color: #666; font-size: 14px; line-height: 1.5;">Master machine learning, neural networks, and AI engineering fundamentals.</p>
+                <a href="ai.html" style="display: inline-block; margin-top: 10px; color: #0f2e21; font-weight: 600; text-decoration: none;">View Course &rarr;</a>
+            </div>
+            </div>
+
+            <!-- Course Card 2: Blockchain Development -->
+             <div class="video-card">
+            <div class="course-card" style="background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                <h4 style="margin-top: 0; color: #0f2e21;">Blockchain Development</h4>
+                <p style="color: #666; font-size: 14px; line-height: 1.5;">Learn smart contracts, Solidity, and decentralized application deployment.</p>
+                <a href="blockchain.html" style="display: inline-block; margin-top: 10px; color: #0f2e21; font-weight: 600; text-decoration: none;">View Course &rarr;</a>
+            </div>
+            </div>
+
+            <!-- Course Card 3: Full-Stack Mastery (Points to index.html) -->
+            <div class="video-card">
+            <div class="course-card" style="background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                <h4 style="margin-top: 0; color: #0f2e21;">Full-Stack Development</h4>
+                <p style="color: #666; font-size: 14px; line-height: 1.5;">Build robust web apps using Node.js, Express, and MongoDB.</p>
+                <a href="index.html" style="display: inline-block; margin-top: 10px; color: #0f2e21; font-weight: 600; text-decoration: none;">View Course &rarr;</a>
+            </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Authentication check
+        const userName = localStorage.getItem("edutech_user");
+        if (userName) {
+            document.getElementById("welcomeUser").innerText = "Welcome, " + userName;
+        } else {
+            window.location.href = "login.html";
+        }
+
+        // Search logic
+        function performSearch() {
+            const query = document.getElementById("searchInput").value.trim().toLowerCase();
+            
+            if (query.includes("ai") || query.includes("artificial intelligence") || query.includes("machine learning")) {
+                window.location.href = "ai.html";
+            } else if (query.includes("full stack") || query.includes("fullstack") || query.includes("web")) {
+                window.location.href = "index.html";
+            } else if (query.includes("blockchain") || query.includes("crypto")) {
+                window.location.href = "blockchain.html";
+            } else if (query) {
+                alert("No course found matching: " + query);
+            }
+        }
+
+        function handleSearch(event) {
+            if (event.key === "Enter") {
+                performSearch();
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem("edutech_user");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

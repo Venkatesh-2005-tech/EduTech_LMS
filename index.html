@@ -6,25 +6,24 @@
     <title>EduTech Learning Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
-    <header>
-        <h1>EduTech Learning Management System</h1>
-        <p>Learning has no limit</p>
-        <nav>
-            <ul>
-                <li><a href="#dashboard">Dashboard</a></li>
-                <li><a href="#courses">Courses</a></li>
-                <li><a href="#settings">Settings</a></li>
-                <li><a href="register.html" class="btn-primary" style="padding: 10px 20px; color: white; border-radius: 20px;">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+<body style="background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;">
 
+    <!-- Top Navbar / Header -->
+    <header style="width: 100% !important; box-sizing: border-box !important; background-color: #ffffff; padding: 20px 5% !important; display: flex !important; justify-content: space-between !important; align-items: center !important; text-align: left !important; border-bottom: 1px solid #e1e4e8;">
+        <!-- Left Logo -->
+        <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">
+            Edu<span style="color: #2e8b57;">Tech</span>
+        </h2>
+
+        <!-- Right Dashboard Button -->
+        <a href="dashboard.html" style="margin: 0; background-color: #0f2e21; color: #ffffff; text-decoration: none; padding: 10px 24px; border-radius: 25px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: inline-block;">
+            Dashboard &rarr;
+        </a>
+    </header>
     <main>
         <!-- The Alert Banner -->
         <div class="alert-banner">
-            <p>New Tech Tracks Available: Full Stack Development in 2026!</p>
+            <p>New Tech Tracks Available:<big> Full Stack Development </big> in 2026! </p>
         </div>
 
         <!-- The Hero Section -->
@@ -35,7 +34,7 @@
                 <p class="subtitle">Follow our curated video roadmap to build real-world projects with HTML, CSS, React, and Node.js.</p>
             </div>
             <div class="hero-image-column">
-                <img src="https://via.placeholder.com/500x400?text=App+Preview" alt="App Preview">
+                <img src="fs.png" alt="App Preview">
             </div>
         </section>
 
@@ -47,84 +46,54 @@
                 
                 <!-- Video Card 1: HTML -->
                 <div class="video-card">
-                    <iframe 
-                        width="100%" height="200"
-                        src="https://www.youtube.com/embed/pQN-pnXPaVg"
-                        title="HTML Tutorial" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'pQN-pnXPaVg')">
+                        <img src="HTML.png" alt="HTML Custom Thumbnail">
+                    </div>
                     <h3>1. HTML & Semantic Web</h3>
                     <p>Learn the skeleton of the web.</p>
                 </div>
                 
                 <!-- Video Card 2: CSS -->
                 <div class="video-card">
-                    <iframe 
-                        width="100%" height="200"
-                        src="https://www.youtube.com/embed/wRNinF7YQqQ" 
-                        title="CSS Tutorial" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'wRNinF7YQqQ')">
+                        <img src="CSS.png" alt="CSS Custom Thumbnail">
+                    </div>
                     <h3>2. CSS Tutorials</h3>
                     <p>Learn the styling of the Web.</p>
                 </div>
                 
                 <!-- Video Card 3: JS -->
                 <div class="video-card">
-                    <iframe 
-                        width="100%" height="200"
-                        src="https://www.youtube.com/embed/W6NZfCO5SIk" 
-                        title="JavaScript Tutorial" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'W6NZfCO5SIk')">
+                        <img src="JS.png" alt="JavaScript Custom Thumbnail">
+                    </div>
                     <h3>3. JavaScript Fundamentals</h3>
                     <p>Add logic and interactivity.</p>
                 </div>
 
                 <!-- Video Card 4: React.js -->
                 <div class="video-card">
-                    <iframe 
-                        width="100%" height="200"
-                        src="https://www.youtube.com/embed/bMknfKXIFA8" 
-                        title="React Tutorial" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'bMknfKXIFA8')">
+                        <img src="ReactJS.png" alt="React Custom Thumbnail">
+                    </div>
                     <h3>4. React.js for Beginners</h3>
                     <p>Build modern, interactive user interfaces.</p>
                 </div>
 
                 <!-- Video Card 5: Node.js & Express -->
                 <div class="video-card">
-                    <iframe 
-                        width="100%" height="200"
-                        src="https://www.youtube.com/embed/Oe421EPjeBE" 
-                        title="Node.js Tutorial" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'Oe421EPjeBE')">
+                        <img src="NODEJS.png" alt="Node.js Custom Thumbnail">
+                    </div>
                     <h3>5. Node.js & Express</h3>
                     <p>Build your own servers and APIs.</p>
                 </div>
 
                 <!-- Video Card 6: Databases (MongoDB) -->
                 <div class="video-card">
-                    <iframe 
-                        width="100%" height="200"
-                        src="https://www.youtube.com/embed/ExcRbA7fy_A" 
-                        title="MongoDB Tutorial" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'ExcRbA7fy_A')">
+                        <img src="DB.png" alt="MongoDB Custom Thumbnail">
+                    </div>
                     <h3>6. Databases (MongoDB)</h3>
                     <p>Store user data, passwords, and course progress safely.</p>
                 </div>
@@ -137,5 +106,22 @@
         <p>&copy; 2026 EduTech. All rights reserved.</p>
     </footer>
     
+    <!-- FIXED SCRIPT: Only one function needed, using the dynamic ${videoId} variable -->
+    <script>
+        function loadVideo(container, videoId) {
+            container.innerHTML = `
+                <iframe 
+                    width="100%" 
+                    height="200" 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                    title="Course Video" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+        }
+        
+    </script>
 </body>
 </html>

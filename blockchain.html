@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain & Web3 Development | EduTech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;">
+
+    <!-- Top Navbar / Header -->
+    <header style="width: 100% !important; box-sizing: border-box !important; background-color: #ffffff; padding: 20px 5% !important; display: flex !important; justify-content: space-between !important; align-items: center !important; text-align: left !important; border-bottom: 1px solid #e1e4e8;">
+        <!-- Left Logo -->
+        <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">
+            Edu<span style="color: #2e8b57;">Tech</span>
+        </h2>
+
+        <!-- Right Dashboard Button -->
+        <a href="dashboard.html" style="margin: 0; background-color: #0f2e21; color: #ffffff; text-decoration: none; padding: 10px 24px; border-radius: 25px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: inline-block;">
+            Dashboard &rarr;
+        </a>
+    </header>
+
+    <!-- Notification Banner -->
+    <div style="width: 100%; background-color: #e6f4ea; color: #0f2e21; text-align: center; padding: 12px 0; font-weight: 600; font-size: 14px;">
+        New Tech Tracks Available: <span style="font-weight: bold;">Smart Contracts & Web3 in 2026!</span>
+    </div>
+
+    <!-- Main Course Hero Section -->
+    <main style="max-width: 1200px; margin: 50px auto 30px; padding: 0 20px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+            
+            <!-- Left Text Section -->
+            <div style="flex: 1; min-width: 320px;">
+                <span style="color: #2e8b57; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 13px;">— Your Learning Path</span>
+                <h1 style="color: #222; font-size: 3.2rem; margin-top: 15px; line-height: 1.15; font-weight: 800;">
+                    Master <span style="color: #6a9355;">Blockchain & Web3</span> from scratch.
+                </h1>
+                <p style="color: #555; font-size: 1.05rem; line-height: 1.6; margin-top: 20px;">
+                    Understand cryptography, consensus mechanisms, smart contract development with Solidity, and deploy decentralized applications (dApps).
+                </p>
+            </div>
+
+            <!-- Right Thumbnail Image Section -->
+            <div style="flex: 1; min-width: 320px; display: flex; justify-content: center;">
+                <div style="width: 100%; max-width: 520px; border-radius: 18px; overflow: hidden; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); border: 2px solid #2e8b57; background: #000;">
+                    <img src="Blockchain.png" 
+                         alt="Blockchain Course Thumbnail" 
+                         style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <br>
+
+    <!-- Video Course Section -->
+    <section style="max-width: 1200px; margin: 30px auto 80px; padding: 0 20px;">
+        <h2 style="color: #0f2e21; font-size: 24px; margin-bottom: 20px;">Course Curriculum & Video Lectures</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+            
+            <!-- Left: Active Video Player -->
+            <div style="flex: 2; min-width: 320px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe id="mainVideoPlayer" 
+                            src="https://www.youtube.com/embed/SSo_EIwHSd4" 
+                            title="Blockchain Course Video Player" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div style="background: #ffffff; padding: 18px 20px; border-top: 1px solid #eee;">
+                    <h3 id="currentVideoTitle" style="margin: 0 0 6px 0; color: #0f2e21; font-size: 18px;">Lesson 1: How Blockchain Works Technically</h3>
+                    <p id="currentVideoDesc" style="margin: 0; color: #666; font-size: 14px;">Understand cryptography, hashing, distributed ledgers, and consensus protocols like PoW and PoS.</p>
+                </div>
+            </div>
+
+            <!-- Right: Video Playlist / List -->
+            <div style="flex: 1; min-width: 280px; background: #ffffff; border-radius: 12px; padding: 16px; border: 1px solid #eaeaea; box-shadow: 0 4px 10px rgba(0,0,0,0.03); max-height: 480px; overflow-y: auto;">
+                <h4 style="margin: 0 0 12px 0; color: #0f2e21; font-size: 16px;">Course Lessons</h4>
+
+                <!-- Lesson 1 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'SSo_EIwHSd4', 'Lesson 1: How Blockchain Works Technically', 'Understand cryptography, hashing, distributed ledgers, and consensus protocols.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #e6f4ea; cursor: pointer; border-left: 4px solid #2e8b57;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #0f2e21;">1. How Blockchain Works</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 26m • 3Blue1Brown</span>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'gyMwXuJrbJQ', 'Lesson 2: Solidity, Blockchain, and Smart Contracts Bootcamp', 'Comprehensive beginner to advanced guide covering Solidity, Hardhat, and smart contract engineering.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">2. Solidity & Smart Contracts</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 32h • freeCodeCamp</span>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'M576WGiDBdQ', 'Lesson 3: Ethereum & Web3 Core Concepts', 'Deep dive into EVM, gas fees, transactions, and state management on Ethereum.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">3. Ethereum & EVM Architecture</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 24m • Fireship</span>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'Wn_Kb3MR_cU', 'Lesson 4: Web3.js & Ethers.js Frontend Integration', 'Connect React frontend applications to MetaMask and Ethereum smart contracts.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">4. Connecting Frontend (Ethers.js)</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 1h 45m</span>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'p36tXHX15ds', 'Lesson 5: DeFi & Token Standards (ERC-20 & ERC-721)', 'Mint custom tokens and NFT smart contracts conforming to open standards.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">5. Tokens & NFTs (ERC-20/721)</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 2h 10m</span>
+                </div>
+
+                <!-- Lesson 6 -->
+                <div class="lesson-item" onclick="changeVideo(this, 'ahk2p6d2r2E', 'Lesson 6: Capstone: Build & Deploy a Full dApp', 'Build and deploy a complete decentralized crowdfunding dApp to a live testnet.')" 
+                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">6. Full dApp Capstone Project</p>
+                    <span style="font-size: 12px; color: #666;">⏱️ 2h 30m</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Playlist Switcher Script -->
+    <script>
+    function changeVideo(element, youtubeId, title, desc) {
+        document.getElementById('mainVideoPlayer').src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+        document.getElementById('currentVideoTitle').innerText = title;
+        document.getElementById('currentVideoDesc').innerText = desc;
+
+        // Reset all playlist item backgrounds
+        const allItems = document.querySelectorAll('.lesson-item');
+        allItems.forEach(item => {
+            item.style.background = "#f8f9fa";
+            item.style.borderLeft = "4px solid transparent";
+            item.querySelector('p').style.color = "#333";
+        });
+
+        // Highlight selected item
+        element.style.background = "#e6f4ea";
+        element.style.borderLeft = "4px solid #2e8b57";
+        element.querySelector('p').style.color = "#0f2e21";
+    }
+    </script>
+</body>
+</html>
