@@ -93,7 +93,8 @@ async function verifyOTP() {
         const password = document.getElementById('userPassword').value;
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/register', {
+            // ✅ UPDATED: Fetch request pointing to the live Render backend
+            const response = await fetch('https://edutech-lms1.onrender.com/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,7 +113,8 @@ async function verifyOTP() {
             }
         } catch (error) {
             console.error("Backend error:", error);
-            alert("Backend connection failed! Ensure your Node.js server is running on port 5000.");
+            // ✅ UPDATED: Cloud-specific error message
+            alert("Backend connection failed! Ensure your Render server is live.");
         }
         
     } else {
@@ -133,7 +135,8 @@ async function loginUser() {
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/login', {
+        // ✅ UPDATED: Fetch request pointing to the live Render backend
+        const response = await fetch('https://edutech-lms1.onrender.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -152,6 +155,7 @@ async function loginUser() {
         }
     } catch (error) {
         console.error("Backend error:", error);
-        alert("Backend connection failed! Ensure your Node.js server is running on port 5000.");
+        // ✅ UPDATED: Cloud-specific error message
+        alert("Backend connection failed! Ensure your Render server is live.");
     }
 }
