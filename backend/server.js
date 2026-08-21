@@ -18,7 +18,45 @@ const db_connection = process.env.MONGO_URI || 'mongodb://localhost:27017/edutec
 mongoose.connect(db_connection)
     .then(() => console.log('✅ Connected to MongoDB successfully!'))
     .catch((error) => console.error('❌ Database connection error:', error));
+// --- FORGOT PASSWORD ROUTES ---
 
+// 1. Check if user exists (before sending reset OTP)
+app.post('/api/find-user', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email: email });
+        
+        if (!user) {
+            return res.status(404).json({ message: "No account found with this email." });
+        }
+        
+        res.status(200).json({ message: "User found! Ready for OTP." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error finding user" });
+    }
+});
+
+// 2. Save the new password
+app.post('/api/update-password', async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        
+        // Find the user and update their password
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found!" });
+        }
+
+        user.password = newPassword;
+        await user.save(); // Save the updated password to MongoDB
+
+        res.status(200).json({ message: "Password successfully updated!" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error updating password" });
+    }
+});
 // --- THE REGISTRATION ROUTE ---
 // Route to check if an email already exists
 app.post('/api/check-email', async (req, res) => {
