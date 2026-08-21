@@ -20,6 +20,24 @@ mongoose.connect(db_connection)
     .catch((error) => console.error('❌ Database connection error:', error));
 
 // --- THE REGISTRATION ROUTE ---
+// Route to check if an email already exists
+app.post('/api/check-email', async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        // Assuming your MongoDB model is named 'User'
+        const existingUser = await User.findOne({ email: email });
+        
+        if (existingUser) {
+            return res.status(400).json({ message: "This email is already registered. Please login." });
+        }
+        
+        res.status(200).json({ message: "Email is available" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error checking email" });
+    }
+});
 app.post('/api/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;

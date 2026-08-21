@@ -32,11 +32,50 @@ async function sendOTP() {
         alert("Please enter a valid email address.");
         return;
     }
+    
+    if (password.length < 6) {
+        alert("Your password must be at least 6 characters long.");
+        return;
+    }
 
-    // UI Feedback
+    // UI Feedback - Checking DB first
+    if (btn) {
+        btn.innerText = "Checking email...";
+        btn.disabled = true;
+    }
+
+    // ✅ NEW: Check if Email Exists in MongoDB Database
+    try {
+        const checkResponse = await fetch('https://edutech-lms1.onrender.com/api/check-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        });
+
+        if (!checkResponse.ok) {
+            const data = await checkResponse.json();
+            alert(data.message || "This email is already registered. Please login.");
+            
+            // Reset button and stop the function
+            if (btn) {
+                btn.innerText = "Send OTP";
+                btn.disabled = false;
+            }
+            return; 
+        }
+    } catch (error) {
+        console.error("Error checking email:", error);
+        alert("Could not connect to server to verify email.");
+        if (btn) {
+            btn.innerText = "Send OTP";
+            btn.disabled = false;
+        }
+        return;
+    }
+
+    // If email is unique, proceed to send OTP
     if (btn) {
         btn.innerText = "Sending OTP...";
-        btn.disabled = true;
     }
 
     // Generate random 4-digit OTP
