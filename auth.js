@@ -198,3 +198,99 @@ async function loginUser() {
         alert("Backend connection failed! Ensure your Render server is live.");
     }
 }
+// ----------------------------------------------------
+// 4. Send OTP for Password Reset
+// ----------------------------------------------------
+async function sendResetOTP() {
+    const email = document.getElementById('resetEmail').value.trim();
+    const btn = document.querySelector('#reset-step-1 .auth-btn');
+
+    if (!email) {
+        alert("Please enter your email address.");
+        return;
+    }
+
+    if (btn) btn.innerText = "Checking...";
+
+    try {
+        // 1. Ask backend if this user exists
+        const findUserRes = await fetch('https://edutech-lms1.onrender.com/api/find-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        });
+
+        if (!findUserRes.ok) {
+            alert("No account found with that email. Please check your spelling or register.");
+            if (btn) btn.innerText = "Send Reset OTP";
+            return;
+        }
+
+        // 2. If user exists, send OTP via EmailJS
+        if (btn) btn.innerText = "Sending OTP...";
+        generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+
+        const templateParams = {
+            user_name: "User",
+            user_email: email, // We don't have their name here, generic greeting is fine
+            to_email: email,      
+            email: email,         
+            otp: generatedOTP
+        };
+
+        await emailjs.send(window.EMAILJS_SERVICE_ID, window.EMAILJS_TEMPLATE_ID, templateParams);
+        
+        alert("Reset OTP sent to " + email);
+        
+        // Hide Step 1, Show Step 2
+        document.getElementById('reset-step-1').style.display = 'none';
+        document.getElementById('reset-step-2').style.display = 'block';
+
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to process request. Please try again.");
+        if (btn) btn.innerText = "Send Reset OTP";
+    }
+}
+
+// ----------------------------------------------------
+// 5. Verify OTP & Update Password
+// ----------------------------------------------------
+async function verifyResetOTP() {
+    const email = document.getElementById('resetEmail').value.trim();
+    const enteredOTP = document.getElementById('resetOtpInput').value.trim();
+    const newPassword = document.getElementById('newPassword').value;
+
+    if (!enteredOTP || !newPassword) {
+        alert("Please enter both the OTP and your new password.");
+        return;
+    }
+
+    if (newPassword.length < 6) {
+        alert("Your new password must be at least 6 characters long.");
+        return;
+    }
+
+    if (enteredOTP === generatedOTP) {
+        try {
+            // Tell backend to update the password
+            const response = await fetch('https://edutech-lms1.onrender.com/api/update-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, newPassword: newPassword })
+            });
+
+            if (response.ok) {
+                alert("Password successfully updated! You can now log in.");
+                window.location.href = 'login.html'; // Send them back to login
+            } else {
+                alert("Failed to update password. Please try again.");
+            }
+        } catch (error) {
+            console.error("Backend error:", error);
+            alert("Could not connect to the server.");
+        }
+    } else {
+        alert("Invalid OTP. Please check your email and try again.");
+    }
+}
