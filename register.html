@@ -16,42 +16,69 @@
     <script src="auth.js" defer></script>
 </head>
 <body>
-
+<!-- Splash Screen -->
+<div id="splash-screen">
+    <h1 class="splash-logo">Edu<span>Tech</span></h1>
+</div>
    <!-- This wrapper will center the card on the screen -->
    <div class="auth-body">
 
         <div class="auth-card">
             <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700;">Edu<span style="color: #2e8b57;">Tech</span></h2>
-            <p>Start your tech journey today.</p>
+            <p>Start your Tech journey today.</p>
 
             <!-- STEP 1: Name, Email & Password -->
             <div id="step-1">
-                <label for="userName">Full Name</label>
-                <input type="text" id="userName" placeholder="e.g. Jane Doe" required>
+                <!-- Floating Input 1 -->
+                <div class="floating-group">
+                    <input type="text" id="userName" placeholder=" " required>
+                    <label for="userName">Full Name</label>
+                </div>
 
-                <label for="userEmail">Email Address</label>
-                <input type="email" id="userEmail" placeholder="jane@example.com" required>
+                <!-- Floating Input 2 -->
+                <div class="floating-group">
+                    <input type="email" id="userEmail" placeholder=" " required>
+                    <label for="userEmail">Email Address</label>
+                </div>
 
-                <label for="userPassword">Create Password</label>
-                <input type="password" id="userPassword" placeholder="Create a strong password" required>
+                <!-- Floating Input 3 -->
+                <div class="floating-group">
+                    <input type="password" id="userPassword" placeholder=" " required>
+                    <label for="userPassword">Create Password</label>
+                </div>
                 
-                <button type="button" class="btn-primary auth-btn" onclick="sendOTP()">Send OTP</button>
+                <button type="button" class="btn-primary auth-btn btn-3d" onclick="sendOTP()">Send OTP</button>
                 <br>
                 <p class="login-link"> Have an Account? <a href="login.html"> Login here </a></p>
             </div>
 
             <!-- STEP 2: OTP Verification (Hidden by default) -->
             <div id="step-2" style="display: none;">
-                <p class="otp-message">An OTP has been sent to your email!</p>
+                <p class="otp-message" style="margin-bottom: 20px; color: #2e8b57; font-weight: 600;">An OTP has been sent to your email!</p>
                 
-                <label for="otpInput">Enter 4-Digit OTP</label>
-                <input type="text" id="otpInput" placeholder="e.g. 1234" maxlength="4">
+                <!-- Floating Input OTP -->
+                <div class="floating-group">
+                    <input type="text" id="otpInput" placeholder=" " maxlength="4">
+                    <label for="otpInput">Enter 4-Digit OTP</label>
+                </div>
 
-                <button type="button" class="btn-primary auth-btn" onclick="verifyOTP()">Verify & Login</button>
+                <button type="button" class="btn-primary auth-btn btn-3d" onclick="verifyOTP()">Verify & Login</button>
             </div>
         </div>
+
+        <!-- 👇 THE FLOWING OCEAN WAVES CONTAINER -->
+
         
    </div>
- 
+<script>
+    window.addEventListener('load', () => {
+        // Change 3000 to 5000 if you really want the full 5 seconds!
+        setTimeout(() => {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+        }, 3000); 
+    });
+</script>
 </body>
 </html>

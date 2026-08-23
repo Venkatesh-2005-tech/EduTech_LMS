@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background-color: #ebf5ff; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-
+<div id="splash-screen">
+    <h1 class="splash-logo">Edu<span>Tech</span></h1>
+</div>
     <!-- Clean Header -->
     <header style="width: 100%; box-sizing: border-box; background-color: #ffffff; border-bottom: 1px solid #e1e4e8; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
         <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700;">Edu<span style="color: #2e8b57;">Tech</span></h2>
@@ -98,5 +100,15 @@
             window.location.href = "login.html";
         }
     </script>
+    <script>
+    window.addEventListener('load', () => {
+        // Hides the splash screen after 3 seconds
+        setTimeout(() => {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+        }, 3000); 
+    });
+</script>
 </body>
 </html>

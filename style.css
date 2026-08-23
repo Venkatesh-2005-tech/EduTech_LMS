@@ -16,7 +16,7 @@ header {
     background-color: white;
     padding: 20px 40px;
     text-align: center;
-    border-bottom: 1px solid #eaeaea; /* Adds a clean line under the header */
+    border-bottom: 1px solid #eaeaea;
 }
 
 header h1 {
@@ -102,7 +102,7 @@ nav a:hover {
 }
 
 .hero-text-column h1 span {
-    color: #929d5b; /* The olive/gold highlight color */
+    color: #929d5b;
 }
 
 .subtitle {
@@ -121,7 +121,7 @@ button {
     padding: 15px 30px;
     font-size: 1rem;
     font-weight: bold;
-    border-radius: 30px; /* Pill-shaped buttons */
+    border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -174,7 +174,7 @@ button {
 }
 
 .video-card:hover {
-    transform: translateY(-10px); /* Lifts the card on hover */
+    transform: translateY(-10px);
 }
 
 .video-card iframe {
@@ -203,31 +203,48 @@ footer {
     color: #888;
     margin-top: 40px;
 }
-/* --- REGISTRATION PAGE CENTERING --- */
 
-body {
-    margin: 0; /* Strips away browser default borders */
-}
-
-/* 1. Forces the wrapper to take up the whole screen and center the card */
+/* --- REGISTRATION & AUTH PAGE STYLES --- */
 .auth-body {
+    min-height: 100vh;
+    width: 100vw;
     display: flex;
-    justify-content: center;   /* Centers horizontally */
-    align-items: center;       /* Centers vertically */
-    min-height: 100vh;         /* Forces container to be 100% of the screen height */
-    background-color: #f6f9f6; /* Soft off-white background */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    /* 1. Sets your image as the background */
+    background-image: url('beach-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* 2. Styles the actual white login box */
+/* 2. Adds a soft, semi-transparent green tint overlay over the image */
+/* This ties it into your EduTech branding and makes your white card easy to read */
+.auth-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 56, 45, 0.35); /* Soft dark green tint */
+    z-index: 1;
+}
+
 .auth-card {
     background-color: #ffffff;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
     width: 100%;
-    max-width: 400px;          /* Stops the card from stretching too wide */
+    max-width: 400px;
     text-align: center;
     box-sizing: border-box;
+    position: relative; 
+    z-index: 10;
 }
 
 .auth-card h1 {
@@ -240,33 +257,12 @@ body {
     margin-bottom: 25px;
 }
 
-/* 3. Styles the inputs to fit perfectly */
 .auth-card label {
     display: block;
     text-align: left;
     font-weight: bold;
     color: #137a63;
     margin-bottom: 8px;
-}
-
-.auth-card input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;    
-    font-size: 1rem;
-}
-
-.auth-card input:focus {
-    outline: none;
-    border-color: #137a63;     /* Turns green when clicked */
-}
-
-.auth-card button {
-    width: 100%;               
-    margin-top: 10px;
 }
 
 .otp-message {
@@ -277,39 +273,171 @@ body {
     font-weight: bold;
     margin-bottom: 20px;
 }
-/* Container for the thumbnail to show it is clickable */
-/* Container is locked to the exact size of your old iframe */
-.video-container {
-    cursor: pointer;
-    width: 100%;
-    height: 200px; /* Locks the height so it CANNOT stretch your card */
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #1a1a1a; /* Fills empty space with a dark background just in case */
-}
 
-/* Image is forced to perfectly fill the locked container */
-.card-thumbnail {
-    width: 100%;
-    height: 100%; /* Forces the image to take up the full 200px */
-    object-fit: cover; /* The magic trick: crops the image perfectly without squishing it */
-    display: block;
-}
-/* Locks the container to the exact size of your old iframe */
+/* --- VIDEO THUMBNAILS --- */
 .video-thumbnail-container {
     width: 100%;
-    height: 200px; /* This is the magic number that saves your layout */
-    border-radius: 10px; /* Optional: rounds the corners nicely */
+    height: 200px;
+    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    background-color: #000; /* Fallback color */
+    background-color: #000;
 }
 
-/* Forces the image to fill the locked container without stretching */
 .video-thumbnail-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Crops edges cleanly instead of squishing */
+    object-fit: cover;
     display: block;
+}
+
+/* --- SPLASH SCREEN STYLES --- */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease; 
+}
+
+.splash-logo {
+    font-size: 3.5rem;
+    color: #0f2e21;
+    font-weight: 700;
+    margin: 0;
+    animation: pulse 1.5s infinite ease-in-out; 
+}
+
+.splash-logo span {
+    color: #2e8b57;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+/* --- FLOATING LABELS --- */
+.floating-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.floating-group input {
+    width: 100%;
+    padding: 15px 15px 10px 15px;
+    font-size: 16px;
+    border: 2px solid #eaeaea;
+    border-radius: 8px;
+    outline: none;
+    background: transparent;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.floating-group input:focus {
+    border-color: #2e8b57;
+    box-shadow: 0 0 8px rgba(46, 139, 87, 0.2);
+}
+
+.floating-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: white;
+    padding: 0 5px;
+}
+
+.floating-group input:focus ~ label,
+.floating-group input:not(:placeholder-shown) ~ label,
+.floating-group input:-webkit-autofill ~ label {
+    top: 0;
+    font-size: 12px;
+    color: #2e8b57;
+    font-weight: 600;
+}
+
+.floating-group input:-webkit-autofill,
+.floating-group input:-webkit-autofill:hover, 
+.floating-group input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+/* --- 3D BUTTON EFFECT --- */
+.btn-3d {
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.1s ease;
+    box-shadow: 0 5px 0 #1a5634;
+    margin-bottom: 5px;
+}
+
+.btn-3d:hover {
+    background-color: #36a265;
+}
+
+.btn-3d:active {
+    transform: translateY(5px);
+    box-shadow: 0 0px 0 #1a5634;
+}
+
+/* --- ISOLATED OCEAN WAVE BACKGROUND ANIMATION --- */
+.ocean-wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.waves {
+    width: 100%;
+    height: 100%;
+}
+
+.wave-parallax > use {
+    animation: moveWave 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.wave-parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+.wave-parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.wave-parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.wave-parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+@keyframes moveWave {
+    0% { transform: translate3d(-90px, 0, 0); }
+    100% { transform: translate3d(85px, 0, 0); }
 }

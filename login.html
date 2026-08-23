@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | EduTech</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Required so auth.js doesn't crash on load -->
+    <!-- 1. EmailJS Library FIRST -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
@@ -14,24 +14,37 @@
         <div class="auth-card">
             <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700;">Edu<span style="color: #2e8b57;">Tech</span></h2>
             <p>Welcome! Please log in.</p>
-
+            
             <div id="login-form">
-                <label for="loginEmail">Email Address</label>
-                <input type="email" id="loginEmail" placeholder="jane@example.com" required>
+                
+                <!-- Floating Input 1: Email -->
+                <div class="floating-group">
+                    <input type="email" id="loginEmail" placeholder=" " required>
+                    <label for="loginEmail">Email Address</label>
+                </div>
 
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter your password" required>
-
-                <button class="btn-primary auth-btn" onclick="loginUser()">Log In</button>
+                <!-- Floating Input 2: Password -->
+                <div class="floating-group">
+                    <input type="password" id="loginPassword" placeholder=" " required>
+                    <label for="loginPassword">Password</label>
+                </div>
+                
+                <!-- 3D Button added here -->
+                <button class="btn-primary auth-btn btn-3d" onclick="loginUser()">Log In</button>
             </div>
             
             <p style="margin-top: 15px; text-align: center; font-size: 14px;">
-                Don't have an account? <a href="register.html" style="color: #007bff;">Sign up here</a>
+                Don't have an account? <a href="register.html" style="color: #007bff; text-decoration: none;">Sign up here</a>
             </p>
-            <a href="forgot-password.html">Forgot Password?</a>
+            
+            <p style="text-align: center; font-size: 14px; margin-top: 10px;">
+              Click here  <a href="forgot-password.html" style="color: #832896; text-decoration: none;">Forgot Password?</a>
+            </p>
         </div>
    </div>
  
+   <!-- Config and Auth logic -->
+   <script src="config.js"></script>
    <script src="auth.js"></script>
 </body>
 </html>
