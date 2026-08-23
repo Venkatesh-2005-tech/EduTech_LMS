@@ -441,3 +441,203 @@ footer {
     0% { transform: translate3d(-90px, 0, 0); }
     100% { transform: translate3d(85px, 0, 0); }
 }
+/* --- LEARNING DASHBOARD (Main Video + Sidebar) --- */
+.course-curriculum-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 40px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: #0f382d; /* Dark green */
+    margin-bottom: 30px;
+}
+
+/* Creates the two-column layout */
+.learning-dashboard {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr; /* Left side is larger */
+    gap: 30px;
+    align-items: start;
+}
+
+/* The Main Video */
+.active-video-player iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background-color: #000;
+}
+
+/* The Playlist Sidebar */
+.course-sidebar {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    max-height: 500px;
+    overflow-y: auto; /* Adds a scrollbar if you have many videos */
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.lesson-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual Lesson Cards */
+.lesson-item {
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    border-left: 4px solid transparent;
+}
+
+.lesson-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* The 'Active' Lesson state (Green highlight) */
+.lesson-item.active {
+    background-color: #e6f2ef; /* Light mint background */
+    border-left: 4px solid #137a63; /* Solid green border on the left */
+}
+
+.lesson-item h4 {
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
+
+.lesson-item.active h4 {
+    color: #137a63;
+}
+
+.lesson-item p {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0;
+}
+/* --- PREMIUM DASHBOARD STYLES --- */
+.dashboard-main {
+    background-color: #f6f9f6;
+    min-height: calc(100vh - 80px); /* Accounts for header height */
+    padding-bottom: 60px;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+    background: linear-gradient(135deg, #0f382d 0%, #1a5634 100%);
+    padding: 60px 5%;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.welcome-banner h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.welcome-banner p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Dashboard Content Grid */
+.dashboard-content {
+    padding: 40px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-heading {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+}
+
+.premium-course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* The Enhanced Cards */
+.premium-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid #eaeaea;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.premium-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(46, 139, 87, 0.15);
+}
+
+.card-color-header {
+    height: 80px;
+    width: 100%;
+}
+
+.card-body {
+    padding: 25px;
+    position: relative;
+}
+
+.course-badge {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+    background: #ffffff;
+    color: #137a63;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.premium-card h3 {
+    font-size: 1.25rem;
+    color: #1a1a1a;
+    margin: 15px 0 10px 0;
+}
+
+.premium-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.view-link {
+    display: inline-block;
+    color: #137a63;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.view-link:hover {
+    color: #0e5c4a;
+}

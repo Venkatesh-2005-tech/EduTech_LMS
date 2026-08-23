@@ -1,26 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // This loads our secret .env file!
+require('dotenv').config();
 
-const User = require('./models/User'); // We import the blueprint we made earlier
+const User = require('./models/User');
+const UserProgress = require('./models/UserProgress'); // Ensure this model exists
 
 const app = express();
 
-// Middleware: These act like translators for our server
-app.use(cors()); // Allows our HTML frontend to talk to this backend
-app.use(express.json()); // Tells the server to understand JSON data from forms
+app.use(cors());
+app.use(express.json());
 
 // --- DATABASE CONNECTION ---
-// We add a fallback (the || operator) just in case the .env file fails to load
 const db_connection = process.env.MONGO_URI || 'mongodb://localhost:27017/edutech';
 
 mongoose.connect(db_connection)
     .then(() => console.log('✅ Connected to MongoDB successfully!'))
     .catch((error) => console.error('❌ Database connection error:', error));
-// --- FORGOT PASSWORD ROUTES ---
 
-// 1. Check if user exists (before sending reset OTP)
+// --- FORGOT PASSWORD ROUTES ---
 app.post('/api/find-user', async (req, res) => {
     try {
         const { email } = req.body;
@@ -37,19 +35,17 @@ app.post('/api/find-user', async (req, res) => {
     }
 });
 
-// 2. Save the new password
 app.post('/api/update-password', async (req, res) => {
     try {
         const { email, newPassword } = req.body;
         
-        // Find the user and update their password
         const user = await User.findOne({ email: email });
         if (!user) {
             return res.status(404).json({ message: "User not found!" });
         }
 
         user.password = newPassword;
-        await user.save(); // Save the updated password to MongoDB
+        await user.save();
 
         res.status(200).json({ message: "Password successfully updated!" });
     } catch (error) {
@@ -57,13 +53,11 @@ app.post('/api/update-password', async (req, res) => {
         res.status(500).json({ message: "Server error updating password" });
     }
 });
-// --- THE REGISTRATION ROUTE ---
-// Route to check if an email already exists
+
+// --- REGISTRATION ROUTES ---
 app.post('/api/check-email', async (req, res) => {
     try {
         const { email } = req.body;
-        
-        // Assuming your MongoDB model is named 'User'
         const existingUser = await User.findOne({ email: email });
         
         if (existingUser) {
@@ -76,18 +70,16 @@ app.post('/api/check-email', async (req, res) => {
         res.status(500).json({ message: "Server error checking email" });
     }
 });
+
 app.post('/api/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        // 1. Check if the user already exists in the database
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res.status(400).json({ message: "User already exists!" });
         }
         
-        // 2. Create the new user. 
-        // Notice we are setting isVerified to TRUE immediately, because EmailJS already proved they are real!
         const newUser = new User({
             name: name,
             email: email,
@@ -95,9 +87,7 @@ app.post('/api/register', async (req, res) => {
             isVerified: true 
         });
 
-        // 3. Save them to MongoDB
         await newUser.save();
-
         console.log(`✅ Success! New user saved to MongoDB: ${email}`);
         res.status(201).json({ message: "User successfully registered in Database!" });
 
@@ -107,23 +97,20 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// --- THE LOGIN ROUTE ---
+// --- LOGIN ROUTE ---
 app.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // 1. Find the user by email in MongoDB
         const user = await User.findOne({ email: email });
         if (!user) {
             return res.status(400).json({ message: "User not found! Please register first." });
         }
 
-        // 2. Check if the password matches
         if (user.password !== password) {
             return res.status(400).json({ message: "Incorrect password!" });
         }
 
-        // 3. Success! Send back a welcome message and user name
         res.status(200).json({ 
             message: "Login successful!", 
             name: user.name,
@@ -136,8 +123,88 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// --- COURSE-SPECIFIC PROGRESS TRACKING ROUTES ---
+
+// 1A. Get user progress with courseName specified
+app.get('/api/progress/:email/:courseName', async (req, res) => {
+    try {
+        const { email, courseName } = req.params;
+        let progress = await UserProgress.findOne({ email, courseName });
+        
+        if (!progress) {
+            progress = await UserProgress.create({ email, courseName, completedLessons: [] });
+        }
+        
+        res.status(200).json(progress);
+    } catch (error) {
+        console.error("Error fetching progress:", error.message);
+        res.status(500).json({ message: "Server error fetching progress" });
+    }
+});
+
+// 1B. Fallback Get user progress without courseName (defaults to fullstack)
+app.get('/api/progress/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        let progress = await UserProgress.findOne({ email, courseName: 'fullstack' });
+        
+        if (!progress) {
+            progress = await UserProgress.create({ email, courseName: 'fullstack', completedLessons: [] });
+        }
+        
+        res.status(200).json(progress);
+    } catch (error) {
+        console.error("Error fetching progress:", error.message);
+        res.status(500).json({ message: "Server error fetching progress" });
+    }
+});
+
+// 2. Save completed lesson index for a specific course safely
+app.post('/api/progress', async (req, res) => {
+    try {
+        const { email, courseName, lessonIndex, totalCount } = req.body;
+        const queryCourse = courseName || 'fullstack';
+        const trackTotal = totalCount || (queryCourse === 'ai' ? 7 : (queryCourse === 'blockchain' ? 6 : 6));
+
+        let progress = await UserProgress.findOne({ email, courseName: queryCourse });
+
+        if (!progress) {
+            progress = new UserProgress({ email, courseName: queryCourse, completedLessons: [lessonIndex] });
+        } else {
+            if (!progress.completedLessons) {
+                progress.completedLessons = [];
+            }
+            if (!progress.completedLessons.includes(lessonIndex)) {
+                progress.completedLessons.push(lessonIndex);
+            }
+        }
+
+        if (progress.completedLessons.length >= trackTotal) {
+            progress.isCompleted = true;
+        }
+
+        await progress.save();
+        res.status(200).json({ message: "Progress updated successfully!", progress });
+    } catch (error) {
+        console.error("Error saving progress:", error.message);
+        res.status(500).json({ message: "Server error saving progress" });
+    }
+});
+
 // --- START THE SERVER ---
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
 });
+mongoose.connect(db_connection)
+    .then(async () => {
+        console.log('✅ Connected to MongoDB successfully!');
+        // Automatically drop the old conflicting email index if it exists
+        try {
+            await mongoose.connection.collection('userprogresses').dropIndex('email_1');
+            console.log('🗑️ Dropped old conflicting email_1 index successfully.');
+        } catch (e) {
+            // Index might already be dropped, safe to ignore
+        }
+    })
+    .catch((error) => console.error('❌ Database connection error:', error));

@@ -5,123 +5,411 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduTech Learning Management System</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- UNIVERSAL MOBILE RESPONSIVENESS (DESKTOP VIEW REMAINS UNTOUCHED) --- */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            main, .dashboard-container, .container {
+                padding: 0 12px !important;
+                margin: 15px auto !important;
+            }
+
+            header, .navbar {
+                padding: 12px 15px !important;
+            }
+            .navbar h2, header h2 {
+                font-size: 20px !important;
+            }
+            .search-wrapper {
+                max-width: 180px !important;
+                padding: 4px 8px !important;
+            }
+            .search-input {
+                font-size: 12px !important;
+            }
+
+            .courses-grid, .learning-dashboard, .curriculum-grid, .hero-section {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+
+            .course-card, .active-video-player, .course-sidebar, .video-player-card, .playlist-card {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+
+            h1 {
+                font-size: 2.1rem !important;
+                line-height: 1.2 !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+
+            form, .auth-container, .modal-content {
+                width: 92% !important;
+                max-width: 100% !important;
+                margin: 20px auto !important;
+                padding: 20px 15px !important;
+            }
+
+            .modal-overlay {
+                padding: 10px !important;
+            }
+            .profile-modal {
+                max-width: 100% !important;
+                max-height: 90vh !important;
+                overflow-y: auto !important;
+            }
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e1e4e8;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 14px;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #2e8b57;
+            transition: width 0.4s ease-in-out;
+        }
+        .progress-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Allows text to drop nicely on mobile */
+            gap: 5px;
+        }
+        .certificate-section {
+            margin-top: 30px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: none;
+        }
+        .certificate-section.unlocked {
+            display: block;
+        }
+        .cert-btn {
+            background-color: #2e8b57;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            margin-top: 15px;
+        }
+        .cert-btn:hover {
+            background-color: #246e44;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close-modal:hover { color: #000; }
+        .certificate-preview {
+            border: 8px solid #0f2e21;
+            padding: 30px;
+            margin-top: 20px;
+            background: #fdfdfd;
+        }
+        .complete-lesson-btn {
+            background-color: #0f2e21;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .complete-lesson-btn:hover {
+            background-color: #1a4d38;
+        }
+        .lesson-item.completed h4 {
+            color: #2e8b57;
+        }
+    </style>
 </head>
 <body style="background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;">
-
+<div id="splash-screen">
+    <h1 class="splash-logo">Edu<span>Tech</span></h1>
+</div>
     <!-- Top Navbar / Header -->
     <header style="width: 100% !important; box-sizing: border-box !important; background-color: #ffffff; padding: 20px 5% !important; display: flex !important; justify-content: space-between !important; align-items: center !important; text-align: left !important; border-bottom: 1px solid #e1e4e8;">
-        <!-- Left Logo -->
         <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">
             Edu<span style="color: #2e8b57;">Tech</span>
         </h2>
-
-        <!-- Right Dashboard Button -->
         <a href="dashboard.html" style="margin: 0; background-color: #0f2e21; color: #ffffff; text-decoration: none; padding: 10px 24px; border-radius: 25px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: inline-block;">
             Dashboard &rarr;
         </a>
     </header>
-    <main>
+
+    <main style="padding: 20px 5%;">
         <!-- The Alert Banner -->
-        <div class="alert-banner">
-            <p>New Tech Tracks Available:<big> Full Stack Development </big> in 2026! </p>
+        <div class="alert-banner" style="margin-bottom: 20px;">
+            <p>New Tech Tracks Available: <big>Full Stack Development</big> in 2026!</p>
         </div>
 
-        <!-- The Hero Section -->
-        <section class="hero-container">
-            <div class="hero-text-column">
-                <p class="overline-text">— YOUR LEARNING PATH</p>
-                <h1>Master <span>Full Stack Development</span> from scratch.</h1>
-                <p class="subtitle">Follow our curated video roadmap to build real-world projects with HTML, CSS, React, and Node.js.</p>
-            </div>
-            <div class="hero-image-column">
-                <img src="fs.png" alt="App Preview">
-            </div>
-        </section>
-
         <!-- The Video Roadmap Section -->
-        <section class="course-videos" id="courses">
-            <h2>Your Journey for: <span>Full Stack Development</span></h2>
+        <section class="course-curriculum-container" id="courses">
+            <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 20px; color: #1a1a1a;">Your Journey for: <span style="color: #137a63;">Full Stack Development</span></h2>
             
-            <div class="video-grid">
+            <!-- Progress Tracker UI -->
+            <div class="progress-wrapper" style="background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                <div class="progress-text">
+                    <span>Course Progress Tracker (<span id="logged-user-display">Loading user...</span>)</span>
+                    <span id="progress-percentage">0% Completed</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="learning-dashboard" style="display: flex; gap: 20px; flex-wrap: wrap;">
                 
-                <!-- Video Card 1: HTML -->
-                <div class="video-card">
-                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'pQN-pnXPaVg')">
-                        <img src="HTML.png" alt="HTML Custom Thumbnail">
+                <!-- Left Side: Large Active Video Player -->
+                <div class="active-video-player" style="flex: 2; min-width: 300px;">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000;">
+                        <iframe id="main-video-frame" src="https://www.youtube.com/embed/pQN-pnXPaVg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
                     </div>
-                    <h3>1. HTML & Semantic Web</h3>
-                    <p>Learn the skeleton of the web.</p>
-                </div>
-                
-                <!-- Video Card 2: CSS -->
-                <div class="video-card">
-                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'wRNinF7YQqQ')">
-                        <img src="CSS.png" alt="CSS Custom Thumbnail">
-                    </div>
-                    <h3>2. CSS Tutorials</h3>
-                    <p>Learn the styling of the Web.</p>
-                </div>
-                
-                <!-- Video Card 3: JS -->
-                <div class="video-card">
-                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'W6NZfCO5SIk')">
-                        <img src="JS.png" alt="JavaScript Custom Thumbnail">
-                    </div>
-                    <h3>3. JavaScript Fundamentals</h3>
-                    <p>Add logic and interactivity.</p>
+                    <button class="complete-lesson-btn" onclick="completeCurrentLesson()">✔ Mark Video as Watched & Next Lesson</button>
                 </div>
 
-                <!-- Video Card 4: React.js -->
-                <div class="video-card">
-                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'bMknfKXIFA8')">
-                        <img src="ReactJS.png" alt="React Custom Thumbnail">
-                    </div>
-                    <h3>4. React.js for Beginners</h3>
-                    <p>Build modern, interactive user interfaces.</p>
-                </div>
+                <!-- Right Side: Course Lessons Sidebar -->
+                <div class="course-sidebar" style="flex: 1; min-width: 280px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                    <h3 class="sidebar-title" style="margin-top: 0;">Course Lessons</h3>
+                    <ul class="lesson-list" style="list-style: none; padding: 0;">
+                        
+                        <li class="lesson-item active" style="padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #e1e4e8;" onclick="changeVideo(this, 'pQN-pnXPaVg', 0)">
+                            <h4 style="margin: 0 0 5px 0;">1. HTML & Semantic Web</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666;">Learn the skeleton of the web.</p>
+                        </li>
+                        
+                        <li class="lesson-item" style="padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #e1e4e8;" onclick="changeVideo(this, 'wRNinF7YQqQ', 1)">
+                            <h4 style="margin: 0 0 5px 0;">2. CSS Tutorials</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666;">Learn the styling of the Web.</p>
+                        </li>
+                        
+                        <li class="lesson-item" style="padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #e1e4e8;" onclick="changeVideo(this, 'W6NZfCO5SIk', 2)">
+                            <h4 style="margin: 0 0 5px 0;">3. JavaScript Fundamentals</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666;">Add logic and interactivity.</p>
+                        </li>
 
-                <!-- Video Card 5: Node.js & Express -->
-                <div class="video-card">
-                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'Oe421EPjeBE')">
-                        <img src="Nodejs.png" alt="Node.js Custom Thumbnail">
-                    </div>
-                    <h3>5. Node.js & Express</h3>
-                    <p>Build your own servers and APIs.</p>
-                </div>
+                        <li class="lesson-item" style="padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #e1e4e8;" onclick="changeVideo(this, 'bMknfKXIFA8', 3)">
+                            <h4 style="margin: 0 0 5px 0;">4. React.js for Beginners</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666;">Build modern, interactive user interfaces.</p>
+                        </li>
 
-                <!-- Video Card 6: Databases (MongoDB) -->
-                <div class="video-card">
-                    <div class="video-thumbnail-container" onclick="loadVideo(this, 'ExcRbA7fy_A')">
-                        <img src="DB.png" alt="MongoDB Custom Thumbnail">
-                    </div>
-                    <h3>6. Databases (MongoDB)</h3>
-                    <p>Store user data, passwords, and course progress safely.</p>
-                </div>
+                        <li class="lesson-item" style="padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #e1e4e8;" onclick="changeVideo(this, 'Oe421EPjeBE', 4)">
+                            <h4 style="margin: 0 0 5px 0;">5. Node.js & Express</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666;">Build your own servers and APIs.</p>
+                        </li>
 
+                        <li class="lesson-item" style="padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; border: 1px solid #e1e4e8;" onclick="changeVideo(this, 'ExcRbA7fy_A', 5)">
+                            <h4 style="margin: 0 0 5px 0;">6. Databases (MongoDB)</h4>
+                            <p style="margin: 0; font-size: 13px; color: #666;">Store user data safely.</p>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Certificate Unlock Section -->
+            <div id="certificate-box" class="certificate-section">
+                <h3>🎉 Congratulations!</h3>
+                <p>Click below to generate and view your official course completion certificate.</p>
+                <button class="cert-btn" onclick="openCertificateModal()">Generate Certificate</button>
             </div>
         </section>
     </main>
 
-    <footer>
+    <!-- Certificate Modal -->
+    <div id="certModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCertificateModal()">&times;</span>
+            <h2>EduTech Certification of Completion</h2>
+            <div class="certificate-preview">
+                <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">This is proudly presented to</p>
+                <h1 id="cert-username" style="color: #0f2e21; font-size: 28px; margin: 10px 0;">[Student Name]</h1>
+                <p style="font-size: 14px;">for successfully completing the curriculum track:</p>
+                <h3 style="color: #2e8b57; margin: 5px 0;">Full Stack Development (2026)</h3>
+                <p style="font-size: 12px; color: #777; margin-top: 20px;">Issued by EduTech Learning Management System</p>
+            </div>
+            <button class="cert-btn" onclick="window.print()" style="margin-top: 20px;">Print / Download Certificate</button>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; background: #fff; border-top: 1px solid #e1e4e8; margin-top: 40px;">
         <p>&copy; 2026 EduTech. All rights reserved.</p>
     </footer>
     
-    <!-- FIXED SCRIPT: Only one function needed, using the dynamic ${videoId} variable -->
+    <!-- Script Logic -->
     <script>
-        function loadVideo(container, videoId) {
-            container.innerHTML = `
-                <iframe 
-                    width="100%" 
-                    height="200" 
-                    src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                    title="Course Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            `;
-        }
+        let currentUserEmail = localStorage.getItem('userEmail');
         
+        if (!currentUserEmail || currentUserEmail === "undefined" || currentUserEmail === "null") {
+            currentUserEmail = prompt("Please enter your registered email to load/track your progress:", "student@example.com");
+            if (currentUserEmail) {
+                localStorage.setItem('userEmail', currentUserEmail);
+            }
+        }
+
+        // Display active user on the UI header
+        document.getElementById('logged-user-display').innerText = currentUserEmail || "Not logged in";
+
+        let currentIndex = 0;
+        let completedLessons = new Set();
+        const totalLessons = 6;
+        const videoIds = ['pQN-pnXPaVg', 'wRNinF7YQqQ', 'W6NZfCO5SIk', 'bMknfKXIFA8', 'Oe421EPjeBE', 'ExcRbA7fy_A'];
+
+        // 1. Fetch saved progress from MongoDB on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (!currentUserEmail) return;
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}`);
+                const data = await response.json();
+
+                if (data && data.completedLessons) {
+                    data.completedLessons.forEach(index => {
+                        completedLessons.add(index);
+                        const items = document.querySelectorAll('.lesson-item');
+                        if (items[index]) {
+                            items[index].classList.add('completed');
+                            items[index].style.backgroundColor = '#eafaf1';
+                            items[index].style.borderColor = '#2e8b57';
+                        }
+                    });
+                    updateProgressBarUI();
+                }
+            } catch (error) {
+                console.error("❌ Error connecting to backend server:", error);
+            }
+        });
+
+        function changeVideo(element, videoId, index) {
+            currentIndex = index;
+            document.getElementById('main-video-frame').src = `https://www.youtube.com/embed/${videoId}`;
+            
+            document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // 2. Save progress to database when a video is marked complete
+        async function completeCurrentLesson() {
+            if (!currentUserEmail) {
+                alert("User email not found. Please refresh and enter your email.");
+                return;
+            }
+
+            completedLessons.add(currentIndex);
+
+            try {
+                await fetch('http://localhost:5000/api/progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: currentUserEmail, courseName: 'fullstack', lessonIndex: currentIndex, totalCount: totalLessons })
+                });
+            } catch (error) {
+                console.error("❌ Failed to save progress to database:", error);
+            }
+
+            const items = document.querySelectorAll('.lesson-item');
+            items[currentIndex].classList.add('completed');
+            items[currentIndex].style.backgroundColor = '#eafaf1';
+            items[currentIndex].style.borderColor = '#2e8b57';
+
+            updateProgressBarUI();
+
+            if (currentIndex + 1 < totalLessons) {
+                currentIndex++;
+                changeVideo(items[currentIndex], videoIds[currentIndex], currentIndex);
+            }
+        }
+
+        function updateProgressBarUI() {
+            let rawPercent = Math.round((completedLessons.size / totalLessons) * 100);
+            let percent = rawPercent > 100 ? 100 : rawPercent; 
+            
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-percentage').innerText = percent + '% Completed';
+
+            if (percent === 100 || completedLessons.size >= totalLessons) {
+                document.getElementById('certificate-box').classList.add('unlocked');
+            }
+        }
+
+        function openCertificateModal() {
+            let name = localStorage.getItem('userName');
+            if (!name || name === "undefined" || name.trim() === "") {
+                name = prompt("Please enter your name for the certificate:", "Student Name");
+                if (name) {
+                    localStorage.setItem('userName', name);
+                } else {
+                    name = "Valued Student";
+                }
+            }
+            document.getElementById('cert-username').innerText = name;
+            document.getElementById('certModal').style.display = 'flex';
+        }
+
+        function closeCertificateModal() {
+            document.getElementById('certModal').style.display = 'none';
+        }
     </script>
+    <script>
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+        }, 3000); 
+    });
+</script>
 </body>
 </html>

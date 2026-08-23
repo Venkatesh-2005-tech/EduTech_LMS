@@ -5,104 +5,678 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | EduTech</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        /* --- MODERN NAVBAR --- */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e1e4e8;
+            padding: 14px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f2e21;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .nav-logo span {
+            color: #2e8b57;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: #f1f3f5;
+            border-radius: 30px;
+            padding: 6px 14px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: #2e8b57;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.15);
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .search-btn {
+            background-color: #0f2e21;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #1a4d38;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Profile Icon Trigger */
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #eafaf1;
+            border: 1px solid #c3e6cb;
+            padding: 6px 14px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .profile-btn:hover {
+            background: #d4edda;
+            transform: translateY(-1px);
+        }
+
+        .avatar-circle {
+            width: 32px;
+            height: 32px;
+            background: #0f2e21;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .profile-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f2e21;
+        }
+
+        .logout-btn {
+            background-color: #0f2e21;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #a71d2a;
+        }
+
+        /* --- DASHBOARD CONTENT --- */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-heading {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f2e21;
+            margin-bottom: 25px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header-banner {
+            height: 110px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .badge {
+            background: #ffffff;
+            color: #0f2e21;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #0f2e21;
+            font-weight: 700;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+        }
+
+        .card-link {
+            color: #2e8b57;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s ease;
+        }
+
+        .card-link:hover {
+            gap: 9px;
+            color: #137a63;
+        }
+
+        /* --- BLUR MODAL OVERLAY --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 46, 33, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Profile Modal Card */
+        .profile-modal {
+            background: #ffffff;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e1e4e8;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #0f2e21 0%, #2e8b57 100%);
+            padding: 28px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .large-avatar {
+            width: 64px;
+            height: 64px;
+            background: #ffffff;
+            color: #0f2e21;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-user-info h3 {
+            margin: 0 0 4px 0;
+            font-size: 22px;
+        }
+
+        .modal-user-info p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .modal-body h4 {
+            margin: 0 0 16px 0;
+            color: #0f2e21;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Course Progress Grid in Modal */
+        .progress-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .progress-card-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 14px 18px;
+        }
+
+        .progress-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-card-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #0f2e21;
+        }
+
+        .progress-card-percent {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2e8b57;
+        }
+
+        .mini-progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: #e1e4e8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .mini-progress-bar-fill {
+            height: 100%;
+            background: #2e8b57;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* --- MOBILE RESPONSIVE FIXES (DESKTOP UNTOUCHED) --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 15px;
+            }
+            .search-wrapper {
+                max-width: 100%;
+            }
+            .nav-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .dashboard-container {
+                margin: 20px auto;
+                padding: 0 12px;
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-overlay {
+                padding: 10px;
+            }
+            .profile-modal {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
 </head>
-<body style="background-color: #ebf5ff; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-<div id="splash-screen">
-    <h1 class="splash-logo">Edu<span>Tech</span></h1>
-</div>
-    <!-- Clean Header -->
-    <header style="width: 100%; box-sizing: border-box; background-color: #ffffff; border-bottom: 1px solid #e1e4e8; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-        <h2 style="margin: 0; color: #0f2e21; font-size: 24px; font-weight: 700;">Edu<span style="color: #2e8b57;">Tech</span></h2>
-        
-        <!-- Search Bar -->
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <input type="text" id="searchInput" placeholder="Search courses (e.g., AI, Full Stack)..." 
-                   style="padding: 8px 15px; width: 280px; border: 1px solid #ccc; border-radius: 6px; outline: none; font-size: 14px;"
-                   onkeypress="handleSearch(event)">
-            <button onclick="performSearch()" style="padding: 8px 15px; background-color: #0f2e21; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Search</button>
+<body>
+    <div id="splash-screen">
+        <h1 class="splash-logo">Edu<span>Tech</span></h1>
+    </div>
+
+    <!-- Modern Top Navbar -->
+    <header class="navbar">
+        <a href="dashboard.html" class="nav-logo">
+            Edu<span>Tech</span>
+        </a>
+
+        <!-- Search Box -->
+        <div class="search-wrapper">
+            <input type="text" id="courseSearchInput" class="search-input" placeholder="Search courses (e.g., AI, Full Stack)..." onkeyup="filterCourses()">
+            <button class="search-btn" onclick="filterCourses()">Search</button>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <span id="welcomeUser" style="font-weight: 600; color: #333; font-size: 14px;"></span>
-            <button onclick="logout()" style="padding: 8px 16px; background-color: #265c16; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600;">Log Out</button>
+        <!-- Right Side Nav Actions -->
+        <div class="nav-actions">
+            <!-- Profile Trigger Icon Button -->
+            <div class="profile-btn" onclick="openProfileModal()">
+                <div class="avatar-circle" id="navAvatarInitial">U</div>
+                <span class="profile-name" id="navUserName">Loading...</span>
+            </div>
+
+            <!-- Logout Button -->
+            <button class="logout-btn" onclick="logoutUser()">Log Out</button>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <h3 style="color: #333; margin-bottom: 20px;">Available Courses</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+    <!-- Main Course Section -->
+    <main class="dashboard-container">
+        <h2 class="section-heading">Available Courses</h2>
+
+        <div class="courses-grid" id="courseList">
             
-            <!-- Course Card 1: Artificial Intelligence (Points to ai.html) -->
-             <div class="video-card">
-            <div class="course-card" style="background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <h4 style="margin-top: 0; color: #0f2e21;">Artificial Intelligence</h4>
-                <p style="color: #666; font-size: 14px; line-height: 1.5;">Master machine learning, neural networks, and AI engineering fundamentals.</p>
-                <a href="ai.html" style="display: inline-block; margin-top: 10px; color: #0f2e21; font-weight: 600; text-decoration: none;">View Course &rarr;</a>
-            </div>
-            </div>
-
-            <!-- Course Card 2: Blockchain Development -->
-             <div class="video-card">
-            <div class="course-card" style="background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <h4 style="margin-top: 0; color: #0f2e21;">Blockchain Development</h4>
-                <p style="color: #666; font-size: 14px; line-height: 1.5;">Learn smart contracts, Solidity, and decentralized application deployment.</p>
-                <a href="blockchain.html" style="display: inline-block; margin-top: 10px; color: #0f2e21; font-weight: 600; text-decoration: none;">View Course &rarr;</a>
-            </div>
+            <!-- 1. Artificial Intelligence -->
+            <div class="course-card" data-title="artificial intelligence ai python machine learning">
+                <div class="card-header-banner" style="background: linear-gradient(135deg, #2d5a27, #6a9355);">
+                    <span class="badge">TRENDING</span>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">Artificial Intelligence</h3>
+                        <p class="card-desc">Master machine learning, neural networks, deep learning, PyTorch, and AI engineering fundamentals.</p>
+                    </div>
+                    <a href="ai.html" class="card-link">View Course &rarr;</a>
+                </div>
             </div>
 
-            <!-- Course Card 3: Full-Stack Mastery (Points to index.html) -->
-            <div class="video-card">
-            <div class="course-card" style="background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <h4 style="margin-top: 0; color: #0f2e21;">Full-Stack Development</h4>
-                <p style="color: #666; font-size: 14px; line-height: 1.5;">Build robust web apps using Node.js, Express, and MongoDB.</p>
-                <a href="index.html" style="display: inline-block; margin-top: 10px; color: #0f2e21; font-weight: 600; text-decoration: none;">View Course &rarr;</a>
+            <!-- 2. Blockchain Development -->
+            <div class="course-card" data-title="blockchain web3 solidity smart contracts ethereum">
+                <div class="card-header-banner" style="background: linear-gradient(135deg, #134e5e, #71b280);">
+                    <span class="badge">WEB3</span>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">Blockchain Development</h3>
+                        <p class="card-desc">Learn smart contracts, Solidity, Ethereum EVM, and decentralized applications (dApps) deployment.</p>
+                    </div>
+                    <a href="blockchain.html" class="card-link">View Course &rarr;</a>
+                </div>
             </div>
+
+            <!-- 3. Full-Stack Development -->
+            <div class="course-card" data-title="full stack development web mern html css javascript react node mongodb">
+                <div class="card-header-banner" style="background: linear-gradient(135deg, #1a2a3a, #203a43);">
+                    <span class="badge">NEW TRACK</span>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">Full-Stack Development</h3>
+                        <p class="card-desc">Build robust web applications from frontend to backend using HTML, CSS, JavaScript, React, Node.js, and MongoDB.</p>
+                    </div>
+                    <a href="index.html" class="card-link">View Course &rarr;</a>
+                </div>
             </div>
 
         </div>
     </main>
 
+    <!-- Profile Modal (With Background Blur Effect) -->
+    <div class="modal-overlay" id="profileModalOverlay" onclick="closeProfileModalOnBackdrop(event)">
+        <div class="profile-modal">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button class="modal-close-btn" onclick="closeProfileModal()">&times;</button>
+                <div class="large-avatar" id="modalAvatarInitial">U</div>
+                <div class="modal-user-info">
+                    <h3 id="modalUserName">User Name</h3>
+                    <p id="modalUserEmail">user@example.com</p>
+                </div>
+            </div>
+
+            <!-- Modal Body (Progress Overview Grid) -->
+            <div class="modal-body">
+                <h4>Your Learning Progress</h4>
+                
+                <div class="progress-grid">
+                    
+                    <!-- AI Progress -->
+                    <div class="progress-card-item">
+                        <div class="progress-card-header">
+                            <span class="progress-card-title">🤖 Artificial Intelligence</span>
+                            <span class="progress-card-percent" id="aiProgressPercent">0%</span>
+                        </div>
+                        <div class="mini-progress-bar-bg">
+                            <div class="mini-progress-bar-fill" id="aiProgressBar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Blockchain Progress -->
+                    <div class="progress-card-item">
+                        <div class="progress-card-header">
+                            <span class="progress-card-title">⛓️ Blockchain Development</span>
+                            <span class="progress-card-percent" id="blockchainProgressPercent">0%</span>
+                        </div>
+                        <div class="mini-progress-bar-bg">
+                            <div class="mini-progress-bar-fill" id="blockchainProgressBar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Full Stack Progress -->
+                    <div class="progress-card-item">
+                        <div class="progress-card-header">
+                            <span class="progress-card-title">💻 Full Stack Development</span>
+                            <span class="progress-card-percent" id="fullstackProgressPercent">0%</span>
+                        </div>
+                        <div class="mini-progress-bar-bg">
+                            <div class="mini-progress-bar-fill" id="fullstackProgressBar"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Logic Script -->
     <script>
-        // Authentication check
-        const userName = localStorage.getItem("edutech_user");
-        if (userName) {
-            document.getElementById("welcomeUser").innerText = "Welcome, " + userName;
-        } else {
-            window.location.href = "login.html";
-        }
+        // Retrieve User Session
+        let currentUserEmail = localStorage.getItem('userEmail') || 'student@example.com';
+        let currentUserName = localStorage.getItem('userName') || 'Venkatesh';
 
-        // Search logic
-        function performSearch() {
-            const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        // Initialize UI with User Info
+        window.addEventListener('DOMContentLoaded', () => {
+            const initial = currentUserName.trim().charAt(0).toUpperCase() || 'U';
             
-            if (query.includes("ai") || query.includes("artificial intelligence") || query.includes("machine learning")) {
-                window.location.href = "ai.html";
-            } else if (query.includes("full stack") || query.includes("fullstack") || query.includes("web")) {
-                window.location.href = "index.html";
-            } else if (query.includes("blockchain") || query.includes("crypto")) {
-                window.location.href = "blockchain.html";
-            } else if (query) {
-                alert("No course found matching: " + query);
+            document.getElementById('navUserName').innerText = currentUserName;
+            document.getElementById('navAvatarInitial').innerText = initial;
+            
+            document.getElementById('modalUserName').innerText = currentUserName;
+            document.getElementById('modalUserEmail').innerText = currentUserEmail;
+            document.getElementById('modalAvatarInitial').innerText = initial;
+
+            // Fetch course progress stats for profile grid
+            fetchUserCourseProgress();
+        });
+
+        // Search/Filter Courses
+        function filterCourses() {
+            const query = document.getElementById('courseSearchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.course-card');
+
+            cards.forEach(card => {
+                const searchKeywords = card.getAttribute('data-title').toLowerCase();
+                if (searchKeywords.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Fetch Progress Data from MongoDB for all 3 courses
+        async function fetchUserCourseProgress() {
+            if (!currentUserEmail) return;
+
+            // Total lessons per track
+            const totalLessonsMap = {
+                ai: 7,
+                blockchain: 6,
+                fullstack: 6
+            };
+
+            // 1. Fetch AI Progress
+            try {
+                const res = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/ai`);
+                const data = await res.json();
+                const completed = data && data.completedLessons ? data.completedLessons.length : 0;
+                const percent = Math.min(100, Math.round((completed / totalLessonsMap.ai) * 100));
+                document.getElementById('aiProgressPercent').innerText = percent + '%';
+                document.getElementById('aiProgressBar').style.width = percent + '%';
+            } catch (e) {
+                console.log("Could not load AI progress:", e);
+            }
+
+            // 2. Fetch Blockchain Progress
+            try {
+                const res = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/blockchain`);
+                const data = await res.json();
+                const completed = data && data.completedLessons ? data.completedLessons.length : 0;
+                const percent = Math.min(100, Math.round((completed / totalLessonsMap.blockchain) * 100));
+                document.getElementById('blockchainProgressPercent').innerText = percent + '%';
+                document.getElementById('blockchainProgressBar').style.width = percent + '%';
+            } catch (e) {
+                console.log("Could not load Blockchain progress:", e);
+            }
+
+            // 3. Fetch Full Stack Progress
+            try {
+                const res = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/fullstack`);
+                const data = await res.json();
+                const completed = data && data.completedLessons ? data.completedLessons.length : 0;
+                const percent = Math.min(100, Math.round((completed / totalLessonsMap.fullstack) * 100));
+                document.getElementById('fullstackProgressPercent').innerText = percent + '%';
+                document.getElementById('fullstackProgressBar').style.width = percent + '%';
+            } catch (e) {
+                console.log("Could not load Full Stack progress:", e);
             }
         }
 
-        function handleSearch(event) {
-            if (event.key === "Enter") {
-                performSearch();
+        // Modal Open / Close Functions
+        function openProfileModal() {
+            fetchUserCourseProgress(); // Refresh data whenever opened
+            document.getElementById('profileModalOverlay').style.display = 'flex';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModalOverlay').style.display = 'none';
+        }
+
+        function closeProfileModalOnBackdrop(event) {
+            if (event.target.id === 'profileModalOverlay') {
+                closeProfileModal();
             }
         }
 
-        // Logout function
-        function logout() {
-            localStorage.removeItem("edutech_user");
-            window.location.href = "login.html";
+        // Logout
+        function logoutUser() {
+            if (confirm("Are you sure you want to log out?")) {
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                window.location.href = "login.html";
+            }
         }
     </script>
     <script>
     window.addEventListener('load', () => {
-        // Hides the splash screen after 3 seconds
         setTimeout(() => {
             const splash = document.getElementById('splash-screen');
             splash.style.opacity = '0';

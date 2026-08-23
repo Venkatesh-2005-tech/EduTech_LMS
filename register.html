@@ -14,6 +14,36 @@
 
     <!-- 3. Auth Logic -->
     <script src="auth.js" defer></script>
+    
+    <style>
+        /* --- MOBILE RESPONSIVENESS (DESKTOP VIEW UNTOUCHED) --- */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            .auth-body {
+                padding: 15px !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                min-height: 100vh !important;
+            }
+            .auth-card {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 auto !important;
+                padding: 25px 20px !important;
+                box-sizing: border-box !important;
+            }
+            .floating-group input {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            h2 {
+                font-size: 22px !important;
+            }
+        }
+    </style>
 </head>
 <body>
 <!-- Splash Screen -->
@@ -65,14 +95,10 @@
                 <button type="button" class="btn-primary auth-btn btn-3d" onclick="verifyOTP()">Verify & Login</button>
             </div>
         </div>
-
-        <!-- 👇 THE FLOWING OCEAN WAVES CONTAINER -->
-
-        
    </div>
+
 <script>
     window.addEventListener('load', () => {
-        // Change 3000 to 5000 if you really want the full 5 seconds!
         setTimeout(() => {
             const splash = document.getElementById('splash-screen');
             splash.style.opacity = '0';

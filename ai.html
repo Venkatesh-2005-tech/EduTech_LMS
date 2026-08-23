@@ -5,148 +5,633 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artificial Intelligence | EduTech</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body style="background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;">
+    <style>
+        /* --- UNIVERSAL MOBILE RESPONSIVENESS (DESKTOP VIEW REMAINS UNTOUCHED) --- */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            main, .dashboard-container, .container {
+                padding: 0 12px !important;
+                margin: 15px auto !important;
+            }
 
-    <!-- Navbar -->
-    <header style="background-color: #ffffff; border-bottom: 1px solid #e1e4e8; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-        <h2 style="margin: 0; color: #0f2e21; font-size: 22px;">Edu<span style="color: #2e8b57;">Tech</span></h2>
+            header, .navbar {
+                padding: 12px 15px !important;
+            }
+            .navbar h2, header h2 {
+                font-size: 20px !important;
+            }
+
+            .courses-grid, .learning-dashboard, .curriculum-grid, .hero-section {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+
+            .course-card, .active-video-player, .course-sidebar, .video-player-card, .playlist-card, .hero-text, .hero-image-wrapper {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+
+            h1 {
+                font-size: 2.1rem !important;
+                line-height: 1.2 !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .modal-content {
+                width: 92% !important;
+                max-width: 100% !important;
+                padding: 20px 15px !important;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e1e4e8;
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f2e21;
+            text-decoration: none;
+        }
+        .nav-logo span { color: #2e8b57; }
+        .dashboard-link {
+            background-color: #0f2e21;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background 0.2s ease;
+        }
+        .dashboard-link:hover {
+            background-color: #1a4d38;
+        }
+
+        /* Banner */
+        .notification-banner {
+            background: linear-gradient(135deg, #e6f4ea, #d4edda);
+            color: #0f2e21;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: 600;
+            font-size: 13px;
+            border-bottom: 1px solid #c3e6cb;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-tag {
+            color: #2e8b57;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 12px;
+        }
+        .hero-title {
+            color: #111;
+            font-size: 2.8rem;
+            margin: 10px 0 15px 0;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+        .hero-desc {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .hero-image-wrapper {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+        .hero-image-box {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #2e8b57;
+            background: #000;
+        }
+        .hero-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Progress Card */
+        .progress-wrapper {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #e9ecef;
+        }
+        .progress-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Prevents text overlap on mobile */
+            gap: 5px;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e1e4e8;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 12px;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #2e8b57;
+            transition: width 0.4s ease-in-out;
+        }
+
+        /* Curriculum Layout */
+        .curriculum-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            align-items: flex-start;
+        }
+        .video-player-card {
+            flex: 2;
+            min-width: 320px;
+            background: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            border: 1px solid #e9ecef;
+        }
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-details {
+            padding: 20px;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        .video-details h3 { margin: 0 0 6px 0; color: #0f2e21; font-size: 18px; }
+        .video-details p { margin: 0; color: #666; font-size: 13px; }
         
-        <a href="dashboard.html" style="padding: 8px 20px; background-color: #0f2e21; color: white; text-decoration: none; border-radius: 20px; font-weight: 600; font-size: 14px;">Dashboard &rarr;</a>
+        .complete-lesson-btn {
+            background-color: #0f2e21;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background 0.2s ease;
+        }
+        .complete-lesson-btn:hover { background-color: #1a4d38; }
+
+        /* Sidebar Playlist */
+        .playlist-card {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            max-height: 520px;
+            overflow-y: auto;
+        }
+        .playlist-card h4 { margin: 0 0 15px 0; color: #0f2e21; font-size: 16px; font-weight: 700; }
+        
+        .lesson-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            cursor: pointer;
+            border: 1px solid #eef0f2;
+            transition: all 0.2s ease;
+        }
+        .lesson-item:hover {
+            background: #edf7f0;
+            border-color: #c3e6cb;
+        }
+        .lesson-item p { margin: 0 0 4px 0; font-weight: 600; font-size: 13px; color: #333; }
+        .lesson-item span { font-size: 11px; color: #777; }
+        .lesson-item.completed p { color: #2e8b57 !important; }
+
+        /* Certificate Box */
+        .certificate-section {
+            margin-top: 30px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e9ecef;
+            display: none;
+        }
+        .certificate-section.unlocked { display: block; }
+        .cert-btn {
+            background-color: #2e8b57;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.2s ease;
+        }
+        .cert-btn:hover { background-color: #246e44; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 14px;
+            text-align: center;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close-modal:hover { color: #000; }
+        .certificate-preview {
+            border: 6px solid #0f2e21;
+            padding: 25px;
+            margin-top: 15px;
+            background: #fdfdfd;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<div id="splash-screen">
+    <h1 class="splash-logo">Edu<span>Tech</span></h1>
+</div>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="dashboard.html" class="nav-logo">Edu<span>Tech</span></a>
+        <a href="dashboard.html" class="dashboard-link">Dashboard &rarr;</a>
     </header>
 
     <!-- Notification Banner -->
-    <div style="background-color: #e6f4ea; color: #0f2e21; text-align: center; padding: 12px 0; font-weight: 600; font-size: 14px;">
-        New Tech Tracks Available: <span style="font-weight: bold;">Artificial Intelligence in 2026!</span>
+    <div class="notification-banner">
+        New Tech Tracks Available: <strong>Artificial Intelligence in 2026!</strong>
     </div>
 
-    <!-- Main Course Hero Section -->
-    <main style="max-width: 1200px; margin: 50px auto 30px; padding: 0 20px;">
-        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
-            
-            <!-- Left Text Section -->
-            <div style="flex: 1; min-width: 320px;">
-                <span style="color: #2e8b57; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 13px;">— Your Learning Path</span>
-                <h1 style="color: #222; font-size: 3.2rem; margin-top: 15px; line-height: 1.15; font-weight: 800;">
-                    Master <span style="color: #6a9355;">Artificial Intelligence</span> from scratch.
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <span class="hero-tag">— Your Learning Path</span>
+                <h1 class="hero-title">
+                    Master <span style="color: #2e8b57;">Artificial Intelligence</span> from scratch.
                 </h1>
-                <p style="color: #555; font-size: 1.05rem; line-height: 1.6; margin-top: 20px;">
+                <p class="hero-desc">
                     Follow our curated video roadmap to build real-world AI projects with Python, Machine Learning, Deep Learning, and Neural Networks.
                 </p>
             </div>
+            <div class="hero-image-wrapper">
+                <div class="hero-image-box">
+                    <img src="ar.png" alt="Artificial Intelligence Course Thumbnail">
+                </div>
+            </div>
+        </section>
 
-            <!-- Right Thumbnail Image Section -->
-            <div style="flex: 1; min-width: 320px; display: flex; justify-content: center;">
-                <div style="width: 100%; max-width: 520px; border-radius: 18px; overflow: hidden; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); border: 2px solid #2e8b57; background: #000;">
-                    <img src="ar.png" 
-                         alt="Artificial Intelligence Course Thumbnail" 
-                         style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <!-- Course Curriculum Section -->
+        <section>
+            <h2 style="color: #0f2e21; font-size: 22px; margin-bottom: 20px;">Course Curriculum & Video Lectures</h2>
+
+            <!-- Progress Tracker UI -->
+            <div class="progress-wrapper">
+                <div class="progress-text">
+                    <span>AI Track Progress Tracker (<span id="logged-user-display" style="color: #2e8b57;">Loading...</span>)</span>
+                    <span id="progress-percentage">0% Completed</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
                 </div>
             </div>
 
+            <div class="curriculum-grid">
+                
+                <!-- Left: Video Player Card -->
+                <div class="video-player-card">
+                    <div class="video-responsive">
+                        <iframe id="mainVideoPlayer" 
+                                src="https://www.youtube.com/embed/eWRfhZUzrAc" 
+                                title="AI Course Video Player" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-details">
+                        <h3 id="currentVideoTitle">1. Python & Data Science Basics</h3>
+                        <p id="currentVideoDesc">Master syntax, NumPy, and data manipulation.</p>
+                    </div>
+                    <div style="padding: 15px 20px; background: #fafafa;">
+                        <button class="complete-lesson-btn" onclick="completeCurrentLesson()">✔ Mark Video as Watched & Next Lesson</button>
+                    </div>
+                </div>
+
+                <!-- Right: Playlist Sidebar -->
+                <div class="playlist-card">
+                    <h4>Course Lessons</h4>
+
+                    <div class="lesson-item" data-index="0" onclick="changeVideo(this, 'eWRfhZUzrAc', '1. Python & Data Science Basics', 'Master syntax, NumPy, and data manipulation.', 0)">
+                        <p>1. Python & Data Science Basics</p>
+                        <span>⏱️ 4h 26m</span>
+                    </div>
+
+                    <div class="lesson-item" data-index="1" onclick="changeVideo(this, 'i_LwzRVP7bg', '2. Machine Learning Algorithms', 'Linear regression, classification, decision trees, and model evaluation.', 1)">
+                        <p>2. Machine Learning Algorithms</p>
+                        <span>⏱️ 3h 53m</span>
+                    </div>
+
+                    <div class="lesson-item" data-index="2" onclick="changeVideo(this, 'aircAruvnKk', '3. Neural Networks & Math', 'Backpropagation, gradient descent, and activation functions.', 2)">
+                        <p>3. Neural Networks & Math</p>
+                        <span>⏱️ 19m</span>
+                    </div>
+
+                    <div class="lesson-item" data-index="3" onclick="changeVideo(this, 'V_xro1bcAuA', '4. PyTorch for Deep Learning', 'Hands-on neural network engineering with PyTorch tensors and GPUs.', 3)">
+                        <p>4. PyTorch for Deep Learning</p>
+                        <span>⏱️ Full Course</span>
+                    </div>
+
+                    <div class="lesson-item" data-index="4" onclick="changeVideo(this, 'zxQyTK8quyY', '5. Transformers & LLMs', 'Understand how attention mechanisms and modern LLMs function.', 4)">
+                        <p>5. Transformers & LLMs</p>
+                        <span>⏱️ 16m</span>
+                    </div>
+
+                    <div class="lesson-item" data-index="5" onclick="changeVideo(this, 'oXlwWbU8l2o', '6. Computer Vision (OpenCV)', 'Image processing, object detection, and visual AI models.', 5)">
+                        <p>6. Computer Vision (OpenCV)</p>
+                        <span>⏱️ 3h 41m</span>
+                    </div>
+
+                    <div class="lesson-item" data-index="6" onclick="changeVideo(this, 'b-bh6U_bO34', '7. Capstone AI Project', 'Deploy an end-to-end full-stack AI application.', 6)">
+                        <p>7. Capstone AI Project</p>
+                        <span>⏱️ 1h 30m</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificate Unlock Section -->
+            <div id="certificate-box" class="certificate-section">
+                <h3>🎉 Congratulations! </h3>
+                <p>Click below to generate and view your official course completion certificate.</p>
+                <button class="cert-btn" onclick="openCertificateModal()">Generate Certificate</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCertificateModal()">&times;</span>
+            <h2>EduTech Certification of Completion</h2>
+            <div class="certificate-preview">
+                <p style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px;">This is proudly presented to</p>
+                <h1 id="cert-username" style="color: #0f2e21; font-size: 26px; margin: 10px 0;">[Student Name]</h1>
+                <p style="font-size: 13px;">for successfully completing the curriculum track:</p>
+                <h3 style="color: #2e8b57; margin: 5px 0;">Artificial Intelligence (2026)</h3>
+                <p style="font-size: 11px; color: #777; margin-top: 15px;">Issued by EduTech Learning Management System</p>
+            </div>
+            <button class="cert-btn" onclick="window.print()" style="margin-top: 15px;">Print / Download Certificate</button>
         </div>
-    </main>
-    <br>
+    </div>
 
-    <!-- Video Course Section -->
-    <section style="max-width: 1200px; margin: 30px auto 80px; padding: 0 20px;">
-        <h2 style="color: #0f2e21; font-size: 24px; margin-bottom: 20px;">Course Curriculum & Video Lectures</h2>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
-            
-            <!-- Left: Active Video Player -->
-            <div style="flex: 2; min-width: 320px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.1);">
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-                    <iframe id="mainVideoPlayer" 
-                            src="https://www.youtube.com/embed/eWRfhZUzrAc" 
-                            title="AI Course Video Player" 
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                    </iframe>
-                </div>
-                <div style="background: #ffffff; padding: 18px 20px; border-top: 1px solid #eee;">
-                    <h3 id="currentVideoTitle" style="margin: 0 0 6px 0; color: #0f2e21; font-size: 18px;">Lesson 1: Python & Math Foundations for AI</h3>
-                    <p id="currentVideoDesc" style="margin: 0; color: #666; font-size: 14px;">Master the syntax, NumPy, and matrix mathematics required for artificial intelligence algorithms.</p>
-                </div>
-            </div>
-
-            <!-- Right: Video Playlist / List -->
-            <div style="flex: 1; min-width: 280px; background: #ffffff; border-radius: 12px; padding: 16px; border: 1px solid #eaeaea; box-shadow: 0 4px 10px rgba(0,0,0,0.03); max-height: 480px; overflow-y: auto;">
-                <h4 style="margin: 0 0 12px 0; color: #0f2e21; font-size: 16px;">Course Lessons</h4>
-
-                <!-- Lesson 1 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'eWRfhZUzrAc', 'Lesson 1: Python & Math Foundations for AI', 'Master syntax, NumPy, and data manipulation.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #e6f4ea; cursor: pointer; border-left: 4px solid #2e8b57;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #0f2e21;">1. Python & Data Science Basics</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ 4h 26m</span>
-                </div>
-
-                <!-- Lesson 2 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'i_LwzRVP7bg', 'Lesson 2: Machine Learning Fundamentals', 'Linear regression, classification, decision trees, and model evaluation.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">2. Machine Learning Algorithms</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ 3h 53m</span>
-                </div>
-
-                <!-- Lesson 3 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'aircAruvnKk', 'Lesson 3: Deep Learning & Neural Networks', 'Backpropagation, gradient descent, and activation functions.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">3. Neural Networks & Math</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ 19m</span>
-                </div>
-
-                <!-- Lesson 4 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'V_xro1bcAuA', 'Lesson 4: PyTorch Deep Learning Bootcamp', 'Hands-on neural network engineering with PyTorch tensors and GPUs.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">4. PyTorch for Deep Learning</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ Full Course</span>
-                </div>
-
-                <!-- Lesson 5 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'zxQyTK8quyY', 'Lesson 5: Transformers & Large Language Models', 'Understand how attention mechanisms and modern LLMs function.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">5. Transformers & LLMs</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ 16m</span>
-                </div>
-
-                <!-- Lesson 6 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'oXlwWbU8l2o', 'Lesson 6: Computer Vision with OpenCV', 'Image processing, object detection, and visual AI models.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">6. Computer Vision (OpenCV)</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ 3h 41m</span>
-                </div>
-
-                <!-- Lesson 7 -->
-                <div class="lesson-item" onclick="changeVideo(this, 'b-bh6U_bO34', 'Lesson 7: AI Capstone Project', 'Deploy an end-to-end full-stack AI application.')" 
-                     style="padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #f8f9fa; cursor: pointer; border-left: 4px solid transparent;">
-                    <p style="margin: 0; font-weight: 600; font-size: 14px; color: #333;">7. Capstone AI Project</p>
-                    <span style="font-size: 12px; color: #666;">⏱️ 1h 30m</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Playlist Switcher Script -->
+    <!-- Script Logic -->
     <script>
-    function changeVideo(element, youtubeId, title, desc) {
-        document.getElementById('mainVideoPlayer').src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
-        document.getElementById('currentVideoTitle').innerText = title;
-        document.getElementById('currentVideoDesc').innerText = desc;
+        const courseName = "ai";
+        let currentUserEmail = localStorage.getItem('userEmail');
+        if (!currentUserEmail || currentUserEmail === "undefined" || currentUserEmail === "null") {
+            currentUserEmail = prompt("Please enter your registered email to track your AI course progress:", "student@example.com");
+            if (currentUserEmail) {
+                localStorage.setItem('userEmail', currentUserEmail);
+            }
+        }
 
-        // Reset all playlist item backgrounds
-        const allItems = document.querySelectorAll('.lesson-item');
-        allItems.forEach(item => {
-            item.style.background = "#f8f9fa";
-            item.style.borderLeft = "4px solid transparent";
-            item.querySelector('p').style.color = "#333";
+        document.getElementById('logged-user-display').innerText = currentUserEmail || "Not logged in";
+
+        let currentIndex = 0;
+        let completedLessons = new Set();
+        const totalLessons = 7; 
+        
+        const videoDataList = [
+            { id: 'eWRfhZUzrAc', title: '1. Python & Data Science Basics', desc: 'Master syntax, NumPy, and data manipulation.' },
+            { id: 'i_LwzRVP7bg', title: '2. Machine Learning Algorithms', desc: 'Linear regression, classification, decision trees, and model evaluation.' },
+            { id: 'aircAruvnKk', title: '3. Neural Networks & Math', desc: 'Backpropagation, gradient descent, and activation functions.' },
+            { id: 'V_xro1bcAuA', title: '4. PyTorch for Deep Learning', desc: 'Hands-on neural network engineering with PyTorch tensors and GPUs.' },
+            { id: 'zxQyTK8quyY', title: '5. Transformers & LLMs', desc: 'Understand how attention mechanisms and modern LLMs function.' },
+            { id: 'oXlwWbU8l2o', title: '6. Computer Vision (OpenCV)', desc: 'Image processing, object detection, and visual AI models.' },
+            { id: 'b-bh6U_bO34', title: '7. Capstone AI Project', desc: 'Deploy an end-to-end full-stack AI application.' }
+        ];
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (!currentUserEmail) return;
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/${courseName}`);
+                const data = await response.json();
+                
+                if (data && data.completedLessons) {
+                    data.completedLessons.forEach(index => {
+                        completedLessons.add(index);
+                        const items = document.querySelectorAll('.lesson-item');
+                        if (items[index]) {
+                            items[index].classList.add('completed');
+                            items[index].style.backgroundColor = '#eafaf1';
+                            items[index].style.borderColor = '#c3e6cb';
+                            items[index].style.borderLeft = '4px solid #2e8b57';
+                        }
+                    });
+                    updateProgressBarUI();
+                }
+            } catch (error) {
+                console.error("Could not load progress from database server:", error);
+            }
         });
 
-        // Highlight selected item
-        element.style.background = "#e6f4ea";
-        element.style.borderLeft = "4px solid #2e8b57";
-        element.querySelector('p').style.color = "#0f2e21";
-    }
+        function changeVideo(element, youtubeId, title, desc, index) {
+            currentIndex = index;
+            document.getElementById('mainVideoPlayer').src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+            document.getElementById('currentVideoTitle').innerText = title;
+            document.getElementById('currentVideoDesc').innerText = desc;
+
+            const allItems = document.querySelectorAll('.lesson-item');
+            allItems.forEach(item => {
+                if(!item.classList.contains('completed')) {
+                    item.style.background = "#f8f9fa";
+                    item.style.borderLeft = "1px solid #eef0f2";
+                }
+            });
+
+            if(!element.classList.contains('completed')) {
+                element.style.background = "#edf7f0";
+                element.style.borderLeft = "4px solid #2e8b57";
+            }
+        }
+
+        async function completeCurrentLesson() {
+            if (!currentUserEmail) {
+                currentUserEmail = prompt("Email missing. Please enter your email to continue:");
+                if (currentUserEmail) {
+                    localStorage.setItem('userEmail', currentUserEmail);
+                } else {
+                    return;
+                }
+            }
+
+            completedLessons.add(currentIndex);
+
+            try {
+                await fetch('http://localhost:5000/api/progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: currentUserEmail, courseName: courseName, lessonIndex: currentIndex, totalCount: totalLessons })
+                });
+            } catch (error) {
+                console.error("Failed to save progress to database:", error);
+            }
+
+            const items = document.querySelectorAll('.lesson-item');
+            items[currentIndex].classList.add('completed');
+            items[currentIndex].style.backgroundColor = '#eafaf1';
+            items[currentIndex].style.borderColor = '#c3e6cb';
+            items[currentIndex].style.borderLeft = '4px solid #2e8b57';
+
+            updateProgressBarUI();
+
+            if (currentIndex + 1 < totalLessons) {
+                currentIndex++;
+                let nextData = videoDataList[currentIndex];
+                changeVideo(items[currentIndex], nextData.id, nextData.title, nextData.desc, currentIndex);
+            }
+        }
+
+        function updateProgressBarUI() {
+            let rawPercent = Math.round((completedLessons.size / totalLessons) * 100);
+            let percent = rawPercent > 100 ? 100 : rawPercent;
+            
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-percentage').innerText = percent + '% Completed';
+
+            if (percent === 100 || completedLessons.size >= totalLessons) {
+                document.getElementById('certificate-box').classList.add('unlocked');
+            }
+        }
+
+        function openCertificateModal() {
+            let name = localStorage.getItem('userName');
+            if (!name || name === "undefined" || name.trim() === "") {
+                name = prompt("Please enter your name for the certificate:", "Student Name");
+                if (name) {
+                    localStorage.setItem('userName', name);
+                } else {
+                    name = "Valued Student";
+                }
+            }
+            document.getElementById('cert-username').innerText = name;
+            document.getElementById('certModal').style.display = 'flex';
+        }
+
+        function closeCertificateModal() {
+            document.getElementById('certModal').style.display = 'none';
+        }
     </script>
+    <script>
+    window.addEventListener('load', () => {
+        // Change 3000 to 5000 if you really want the full 5 seconds!
+        setTimeout(() => {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+        }, 3000); 
+    });
+</script>
 </body>
 </html>
