@@ -44,7 +44,7 @@ async function sendOTP() {
         btn.disabled = true;
     }
 
-    // ✅ NEW: Check if Email Exists in MongoDB Database
+    // Check if Email Exists in MongoDB Database
     try {
         const checkResponse = await fetch('https://edutech-lms1.onrender.com/api/check-email', {
             method: 'POST',
@@ -132,7 +132,6 @@ async function verifyOTP() {
         const password = document.getElementById('userPassword').value;
 
         try {
-            // ✅ UPDATED: Fetch request pointing to the live Render backend
             const response = await fetch('https://edutech-lms1.onrender.com/api/register', {
                 method: 'POST',
                 headers: {
@@ -146,13 +145,14 @@ async function verifyOTP() {
             if (response.ok) {
                 alert("Verification successful! Account created.");
                 localStorage.setItem("edutech_user", name);
+                localStorage.setItem("userName", name);
+                localStorage.setItem("userEmail", email); // Saved for cross-device progress tracking
                 window.location.href = 'dashboard.html'; 
             } else {
                 alert("Registration Error: " + (data.message || "Could not register"));
             }
         } catch (error) {
             console.error("Backend error:", error);
-            // ✅ UPDATED: Cloud-specific error message
             alert("Backend connection failed! Ensure your Render server is live.");
         }
         
@@ -174,7 +174,6 @@ async function loginUser() {
     }
 
     try {
-        // ✅ UPDATED: Fetch request pointing to the live Render backend
         const response = await fetch('https://edutech-lms1.onrender.com/api/login', {
             method: 'POST',
             headers: {
@@ -188,16 +187,18 @@ async function loginUser() {
         if (response.ok) {
             alert("Login Successful! Welcome back, " + data.name);
             localStorage.setItem("edutech_user", data.name);
+            localStorage.setItem("userName", data.name);
+            localStorage.setItem("userEmail", email); // Saved so mobile and desktop sync progress correctly
             window.location.href = 'dashboard.html'; 
         } else {
             alert("Login Failed: " + (data.message || "Invalid credentials"));
         }
     } catch (error) {
         console.error("Backend error:", error);
-        // ✅ UPDATED: Cloud-specific error message
         alert("Backend connection failed! Ensure your Render server is live.");
     }
 }
+
 // ----------------------------------------------------
 // 4. Send OTP for Password Reset
 // ----------------------------------------------------
@@ -232,7 +233,7 @@ async function sendResetOTP() {
 
         const templateParams = {
             user_name: "User",
-            user_email: email, // We don't have their name here, generic greeting is fine
+            user_email: email, 
             to_email: email,      
             email: email,         
             otp: generatedOTP
@@ -282,7 +283,7 @@ async function verifyResetOTP() {
 
             if (response.ok) {
                 alert("Password successfully updated! You can now log in.");
-                window.location.href = 'login.html'; // Send them back to login
+                window.location.href = 'login.html'; 
             } else {
                 alert("Failed to update password. Please try again.");
             }
