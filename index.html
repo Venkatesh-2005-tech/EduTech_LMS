@@ -290,7 +290,8 @@
     
     <!-- Script Logic -->
     <script>
-        let currentUserEmail = localStorage.getItem('userEmail');
+        const courseName = "fullstack";
+        let currentUserEmail = localStorage.getItem('userEmail') || localStorage.getItem('edutech_user');
         
         if (!currentUserEmail || currentUserEmail === "undefined" || currentUserEmail === "null") {
             currentUserEmail = prompt("Please enter your registered email to load/track your progress:", "student@example.com");
@@ -312,7 +313,8 @@
             if (!currentUserEmail) return;
 
             try {
-                const response = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}`);
+                // ✅ FIXED: Pointing to live Render URL with courseName
+                const response = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/${courseName}`);
                 const data = await response.json();
 
                 if (data && data.completedLessons) {
@@ -343,17 +345,22 @@
         // 2. Save progress to database when a video is marked complete
         async function completeCurrentLesson() {
             if (!currentUserEmail) {
-                alert("User email not found. Please refresh and enter your email.");
-                return;
+                currentUserEmail = prompt("User email not found. Please refresh and enter your email.");
+                if (currentUserEmail) {
+                    localStorage.setItem('userEmail', currentUserEmail);
+                } else {
+                    return;
+                }
             }
 
             completedLessons.add(currentIndex);
 
             try {
-                await fetch('http://localhost:5000/api/progress', {
+                // ✅ FIXED: Pointing to live Render URL
+                await fetch('https://edutech-lms1.onrender.com/api/progress', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: currentUserEmail, courseName: 'fullstack', lessonIndex: currentIndex, totalCount: totalLessons })
+                    body: JSON.stringify({ email: currentUserEmail, courseName: courseName, lessonIndex: currentIndex, totalCount: totalLessons })
                 });
             } catch (error) {
                 console.error("❌ Failed to save progress to database:", error);

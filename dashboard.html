@@ -603,53 +603,54 @@
         }
 
         // Fetch Progress Data from MongoDB for all 3 courses
-        async function fetchUserCourseProgress() {
-            if (!currentUserEmail) return;
+       // Fetch Progress Data from MongoDB on Render for all 3 courses
+async function fetchUserCourseProgress() {
+    currentUserEmail = localStorage.getItem('userEmail') || localStorage.getItem('edutech_user');
+    if (!currentUserEmail) return;
 
-            // Total lessons per track
-            const totalLessonsMap = {
-                ai: 7,
-                blockchain: 6,
-                fullstack: 6
-            };
+    // Total lessons per track
+    const totalLessonsMap = {
+        ai: 7,
+        blockchain: 6,
+        fullstack: 6
+    };
 
-            // 1. Fetch AI Progress
-            try {
-                const res = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/ai`);
-                const data = await res.json();
-                const completed = data && data.completedLessons ? data.completedLessons.length : 0;
-                const percent = Math.min(100, Math.round((completed / totalLessonsMap.ai) * 100));
-                document.getElementById('aiProgressPercent').innerText = percent + '%';
-                document.getElementById('aiProgressBar').style.width = percent + '%';
-            } catch (e) {
-                console.log("Could not load AI progress:", e);
-            }
+    // 1. Fetch AI Progress from live Render backend
+    try {
+        const res = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/ai`);
+        const data = await res.json();
+        const completed = data && data.completedLessons ? data.completedLessons.length : 0;
+        const percent = Math.min(100, Math.round((completed / totalLessonsMap.ai) * 100));
+        document.getElementById('aiProgressPercent').innerText = percent + '%';
+        document.getElementById('aiProgressBar').style.width = percent + '%';
+    } catch (e) {
+        console.log("Could not load AI progress:", e);
+    }
 
-            // 2. Fetch Blockchain Progress
-            try {
-                const res = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/blockchain`);
-                const data = await res.json();
-                const completed = data && data.completedLessons ? data.completedLessons.length : 0;
-                const percent = Math.min(100, Math.round((completed / totalLessonsMap.blockchain) * 100));
-                document.getElementById('blockchainProgressPercent').innerText = percent + '%';
-                document.getElementById('blockchainProgressBar').style.width = percent + '%';
-            } catch (e) {
-                console.log("Could not load Blockchain progress:", e);
-            }
+    // 2. Fetch Blockchain Progress from live Render backend
+    try {
+        const res = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/blockchain`);
+        const data = await res.json();
+        const completed = data && data.completedLessons ? data.completedLessons.length : 0;
+        const percent = Math.min(100, Math.round((completed / totalLessonsMap.blockchain) * 100));
+        document.getElementById('blockchainProgressPercent').innerText = percent + '%';
+        document.getElementById('blockchainProgressBar').style.width = percent + '%';
+    } catch (e) {
+        console.log("Could not load Blockchain progress:", e);
+    }
 
-            // 3. Fetch Full Stack Progress
-            try {
-                const res = await fetch(`http://localhost:5000/api/progress/${currentUserEmail}/fullstack`);
-                const data = await res.json();
-                const completed = data && data.completedLessons ? data.completedLessons.length : 0;
-                const percent = Math.min(100, Math.round((completed / totalLessonsMap.fullstack) * 100));
-                document.getElementById('fullstackProgressPercent').innerText = percent + '%';
-                document.getElementById('fullstackProgressBar').style.width = percent + '%';
-            } catch (e) {
-                console.log("Could not load Full Stack progress:", e);
-            }
-        }
-
+    // 3. Fetch Full Stack Progress from live Render backend
+    try {
+        const res = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/fullstack`);
+        const data = await res.json();
+        const completed = data && data.completedLessons ? data.completedLessons.length : 0;
+        const percent = Math.min(100, Math.round((completed / totalLessonsMap.fullstack) * 100));
+        document.getElementById('fullstackProgressPercent').innerText = percent + '%';
+        document.getElementById('fullstackProgressBar').style.width = percent + '%';
+    } catch (e) {
+        console.log("Could not load Full Stack progress:", e);
+    }
+}
         // Modal Open / Close Functions
         function openProfileModal() {
             fetchUserCourseProgress(); // Refresh data whenever opened
