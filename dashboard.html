@@ -566,6 +566,9 @@
         </div>
     </div>
 
+    <!-- Central API config: defines API_BASE_URL -->
+    <script src="api-config.js"></script>
+
     <!-- Dashboard Logic Script -->
     <script>
         // Retrieve User Session
@@ -617,7 +620,7 @@ async function fetchUserCourseProgress() {
 
     // 1. Fetch AI Progress from live Render backend
     try {
-        const res = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/ai`);
+        const res = await fetch(`${API_BASE_URL}/api/progress/${currentUserEmail}/ai`);
         const data = await res.json();
         const completed = data && data.completedLessons ? data.completedLessons.length : 0;
         const percent = Math.min(100, Math.round((completed / totalLessonsMap.ai) * 100));
@@ -629,7 +632,7 @@ async function fetchUserCourseProgress() {
 
     // 2. Fetch Blockchain Progress from live Render backend
     try {
-        const res = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/blockchain`);
+        const res = await fetch(`${API_BASE_URL}/api/progress/${currentUserEmail}/blockchain`);
         const data = await res.json();
         const completed = data && data.completedLessons ? data.completedLessons.length : 0;
         const percent = Math.min(100, Math.round((completed / totalLessonsMap.blockchain) * 100));
@@ -641,7 +644,7 @@ async function fetchUserCourseProgress() {
 
     // 3. Fetch Full Stack Progress from live Render backend
     try {
-        const res = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/fullstack`);
+        const res = await fetch(`${API_BASE_URL}/api/progress/${currentUserEmail}/fullstack`);
         const data = await res.json();
         const completed = data && data.completedLessons ? data.completedLessons.length : 0;
         const percent = Math.min(100, Math.round((completed / totalLessonsMap.fullstack) * 100));

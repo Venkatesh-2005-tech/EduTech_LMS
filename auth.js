@@ -1,3 +1,8 @@
+// ─── API Configuration ────────────────────────────────────────────────────────
+// Single source of truth for the backend URL. Change this if the Render
+// service URL ever changes — all auth functions below use this constant.
+const API_BASE_URL = "https://edutech-lms-backend.onrender.com";
+
 // Global Configuration for EmailJS
 window.EMAILJS_PUBLIC_KEY = "jZmDzOTsXBojdVgzH";
 window.EMAILJS_SERVICE_ID = "service_30dr4b8";
@@ -46,7 +51,7 @@ async function sendOTP() {
 
     // Check if Email Exists in MongoDB Database
     try {
-        const checkResponse = await fetch('https://edutech-lms1.onrender.com/api/check-email', {
+        const checkResponse = await fetch(`${API_BASE_URL}/api/check-email`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email })
@@ -132,7 +137,7 @@ async function verifyOTP() {
         const password = document.getElementById('userPassword').value;
 
         try {
-            const response = await fetch('https://edutech-lms1.onrender.com/api/register', {
+            const response = await fetch(`${API_BASE_URL}/api/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -174,7 +179,7 @@ async function loginUser() {
     }
 
     try {
-        const response = await fetch('https://edutech-lms1.onrender.com/api/login', {
+        const response = await fetch(`${API_BASE_URL}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -215,7 +220,7 @@ async function sendResetOTP() {
 
     try {
         // 1. Ask backend if this user exists
-        const findUserRes = await fetch('https://edutech-lms1.onrender.com/api/find-user', {
+        const findUserRes = await fetch(`${API_BASE_URL}/api/find-user`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email })
@@ -275,7 +280,7 @@ async function verifyResetOTP() {
     if (enteredOTP === generatedOTP) {
         try {
             // Tell backend to update the password
-            const response = await fetch('https://edutech-lms1.onrender.com/api/update-password', {
+            const response = await fetch(`${API_BASE_URL}/api/update-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: email, newPassword: newPassword })

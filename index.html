@@ -288,6 +288,9 @@
         <p>&copy; 2026 EduTech. All rights reserved.</p>
     </footer>
     
+    <!-- Central API config: defines API_BASE_URL -->
+    <script src="api-config.js"></script>
+
     <!-- Script Logic -->
     <script>
         const courseName = "fullstack";
@@ -313,8 +316,8 @@
             if (!currentUserEmail) return;
 
             try {
-                // ✅ FIXED: Pointing to live Render URL with courseName
-                const response = await fetch(`https://edutech-lms1.onrender.com/api/progress/${currentUserEmail}/${courseName}`);
+                // Fetch saved progress from the backend on page load
+                const response = await fetch(`${API_BASE_URL}/api/progress/${currentUserEmail}/${courseName}`);
                 const data = await response.json();
 
                 if (data && data.completedLessons) {
@@ -356,8 +359,8 @@
             completedLessons.add(currentIndex);
 
             try {
-                // ✅ FIXED: Pointing to live Render URL
-                await fetch('https://edutech-lms1.onrender.com/api/progress', {
+                // Save completed lesson to the backend
+                await fetch(`${API_BASE_URL}/api/progress`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: currentUserEmail, courseName: courseName, lessonIndex: currentIndex, totalCount: totalLessons })

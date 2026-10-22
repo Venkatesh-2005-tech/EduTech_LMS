@@ -4,19 +4,34 @@ const cors = require('cors');
 require('dotenv').config();
 
 const User = require('./models/User');
-const UserProgress = require('./models/UserProgress'); // Ensure this model exists
+const UserProgress = require('./models/UserProgress');
 
 const app = express();
 
-app.use(cors());
+// --- CORS CONFIGURATION ---
+// Explicitly allow our frontend origins so browsers never block API requests.
+const allowedOrigins = [
+    'https://edutech-lms-backend.onrender.com', // production backend (same-origin calls)
+    'https://edutech-lms1.onrender.com',         // legacy / old frontend deployment
+    'http://localhost:3000',                      // local dev (React)
+    'http://localhost:5500',                      // local dev (Live Server)
+    'http://127.0.0.1:5500',                      // local dev (Live Server alt)
+    'null'                                        // file:// protocol (opening HTML directly)
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, curl, Postman)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        callback(new Error('CORS policy: origin ' + origin + ' not allowed'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
 app.use(express.json());
-
-// --- DATABASE CONNECTION ---
-const db_connection = process.env.MONGO_URI || 'mongodb://localhost:27017/edutech';
-
-mongoose.connect(db_connection)
-    .then(() => console.log('✅ Connected to MongoDB successfully!'))
-    .catch((error) => console.error('❌ Database connection error:', error));
 
 // --- FORGOT PASSWORD ROUTES ---
 app.post('/api/find-user', async (req, res) => {
@@ -191,20 +206,24 @@ app.post('/api/progress', async (req, res) => {
     }
 });
 
-// --- START THE SERVER ---
+// --- DATABASE CONNECTION + SERVER START ---
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
-});
+const db_connection = process.env.MONGO_URI || 'mongodb://localhost:27017/edutech';
+
 mongoose.connect(db_connection)
     .then(async () => {
         console.log('✅ Connected to MongoDB successfully!');
-        // Automatically drop the old conflicting email index if it exists
+
+        // One-time migration: drop the old single-field email index if it still exists
         try {
             await mongoose.connection.collection('userprogresses').dropIndex('email_1');
             console.log('🗑️ Dropped old conflicting email_1 index successfully.');
         } catch (e) {
-            // Index might already be dropped, safe to ignore
+            // Index already removed — safe to ignore
         }
+
+        app.listen(PORT, () => {
+            console.log(`🚀 Server is running on port ${PORT}`);
+        });
     })
     .catch((error) => console.error('❌ Database connection error:', error));
