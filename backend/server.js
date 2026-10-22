@@ -11,7 +11,7 @@ const app = express();
 // --- CORS CONFIGURATION ---
 // Explicitly allow our frontend origins so browsers never block API requests.
 const allowedOrigins = [
-    'https://edutech-lms-backend.onrender.com', // production backend (same-origin calls)
+    'https://edutech-lms-backend-7y0q.onrender.com', // production backend (same-origin calls)
     'https://edutech-lms1.onrender.com',         // legacy / old frontend deployment
     'http://localhost:3000',                      // local dev (React)
     'http://localhost:5500',                      // local dev (Live Server)

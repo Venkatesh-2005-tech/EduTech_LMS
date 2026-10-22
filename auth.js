@@ -1,7 +1,7 @@
 // ─── API Configuration ────────────────────────────────────────────────────────
 // Single source of truth for the backend URL. Change this if the Render
 // service URL ever changes — all auth functions below use this constant.
-const API_BASE_URL = "https://edutech-lms-backend.onrender.com";
+const API_BASE_URL = "https://edutech-lms-backend-7y0q.onrender.com";
 
 // Global Configuration for EmailJS
 window.EMAILJS_PUBLIC_KEY = "jZmDzOTsXBojdVgzH";

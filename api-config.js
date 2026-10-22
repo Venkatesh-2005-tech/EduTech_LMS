@@ -8,4 +8,4 @@
  * Production backend: https://edutech-lms-backend.onrender.com
  */
 
-const API_BASE_URL = "https://edutech-lms-backend.onrender.com";
+const API_BASE_URL = "https://edutech-lms-backend-7y0q.onrender.com";
